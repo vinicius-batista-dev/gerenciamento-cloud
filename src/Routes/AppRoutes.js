@@ -5,10 +5,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
 import SignIn from "../pages/Signin";
 import SignUp from "../pages/Signup";
+
+import Header from "../components/header/header";
+import ConstrucaoService from "../pages/ConstrucaoService";
 import ListarConstrucao from "../pages/ListarConstrucao";
-import ContrucaoService from "../pages/ConstrucaoService";
+
 import { useAuth } from "../contexts/auth";
 
 const PrivateRouter = ({ element, redirect, isLogged }) => {
@@ -26,6 +30,7 @@ const AppRoutes = () => {
 
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/signin" element={<SignIn />} isLogged={isLogged} />
 
@@ -33,7 +38,7 @@ const AppRoutes = () => {
           path="/construcaoService"
           element={
             <PrivateRouter
-              element={<ContrucaoService />}
+              element={<ConstrucaoService />}
               redirect="/signin"
               isLogged={isLogged}
             />

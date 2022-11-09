@@ -3,9 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import iconConstrucao from "../assets/iconConstrucao.png";
 
-const ContrucaoService = () => {
+const ConstrucaoService = () => {
   const [descricao, setDescricao] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -184,4 +183,4 @@ const ContrucaoService = () => {
   );
 };
 
-export default ContrucaoService;
+export default ConstrucaoService;

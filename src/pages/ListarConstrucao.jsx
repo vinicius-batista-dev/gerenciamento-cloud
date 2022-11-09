@@ -130,7 +130,7 @@ function ListarConstrucao() {
           </div>
           <div className="row">
             <div className="col-12">
-              <table className="table table-striped">
+              <table className="table table-dark">
                 <thead>
                   <tr>
                     <th>Descrição</th>

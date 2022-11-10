@@ -5,44 +5,42 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Header = () => {
   const navigate = useNavigate();
 
-  //Ao clicar no botao de construcao service tera um alerta para o usuario logar
-  if (window.location.pathname === "/construcaoService") {
-    alert("Por favor, deve estar logado");
-  }
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/signin");
   };
 
   return (
-    <nav className="navbar navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand">
-          <span className="ms-2">Bem Vindo</span>
+        <Link className="navbar-brand" to="/">
+          Gerencia
         </Link>
-        <ul className="nav">
-          <li className="nav-item">
-            <Link to="/" className="nav-link active">
-              Home
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/construcaoService" className="nav-link">
-              Service
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/listarConstrucao" className="nav-link">
-              ListarConstrucao
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link onClick={handleLogout} to="/signin" className="nav-link">
-              Sair
-            </Link>
-          </li>
-        </ul>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/construcaoService">
+                Serviços
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/listarConstrucao">
+                Consulta
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/signin" onClick={handleLogout}>
+                Sair
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );

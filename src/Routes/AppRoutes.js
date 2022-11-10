@@ -12,6 +12,7 @@ import SignUp from "../pages/Signup";
 import Header from "../components/header/header";
 import ConstrucaoService from "../pages/ConstrucaoService";
 import ListarConstrucao from "../pages/ListarConstrucao";
+import ConsultaConstrucao from "../pages/ConsultaConstrucao";
 
 import { useAuth } from "../contexts/auth";
 
@@ -50,6 +51,17 @@ const AppRoutes = () => {
           element={
             <PrivateRouter
               element={<ListarConstrucao />}
+              redirect="/signin"
+              isLogged={isLogged}
+            />
+          }
+        />
+
+        <Route
+          path="/consultaConstrucao"
+          element={
+            <PrivateRouter
+              element={<ConsultaConstrucao />}
               redirect="/signin"
               isLogged={isLogged}
             />

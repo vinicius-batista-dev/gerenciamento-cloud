@@ -152,6 +152,7 @@ function ListarConstrucao() {
                         Editar
                       </button>
                       <button
+                        style={{ marginLeft: "10px" }}
                         className="btn btn-danger"
                         onClick={() => handleDelete(construcao.id)}
                       >

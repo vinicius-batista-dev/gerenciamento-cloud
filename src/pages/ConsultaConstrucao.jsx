@@ -114,7 +114,11 @@ const ConsultaConstrucao = () => {
             Excluir
           </button>
 
-          <Link className="btn btn-primary" to="/listarConstrucao">
+          <Link
+            style={{ marginLeft: "10px" }}
+            className="btn btn-primary"
+            to="/listarConstrucao"
+          >
             Voltar
           </Link>
         </div>

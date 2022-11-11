@@ -142,8 +142,9 @@ const ConstrucaoService = () => {
                   </button>
 
                   <button
+                    style={{ marginLeft: "10px" }}
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-danger"
                     onClick={limparCampos}
                   >
                     Limpar

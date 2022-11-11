@@ -8,9 +8,7 @@ const Home = () => {
       <div className="row">
         <div className="col-md-12">
           <div className="card">
-            <div className="card-header">
-              <h3>Home</h3>
-            </div>
+            
             <div className="card-body">
               <h5 className="card-title">
                 Bem vindo ao sistema de gerenciamento de construção!

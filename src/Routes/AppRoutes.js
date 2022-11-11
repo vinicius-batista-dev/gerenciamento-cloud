@@ -73,7 +73,7 @@ const AppRoutes = () => {
         />
 
         <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<Navigate to="/signin" />} />
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Toggle from "react-bootstrap-toggle";
 
 const Header = () => {
   const [show, setShow] = React.useState(false);

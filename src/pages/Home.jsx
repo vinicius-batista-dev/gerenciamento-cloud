@@ -9,7 +9,7 @@ const Home = () => {
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              <h3>=D</h3>
+              <h3>Home</h3>
             </div>
             <div className="card-body">
               <h5 className="card-title">
@@ -20,15 +20,17 @@ const Home = () => {
               </p>
               <p>
                 O objetivo deste sistema consiste em ajudar as empresas de
-                construcao civil, a gerenciar o tempo de suas obras, e assim,
-                ter uma melhor visao do andamento{" "}
+                construcao civil, a gerenciar seus projetos de construcao,
+                fornecendo um sistema de cadastro de construcao, cadastro de
+                servicos, cadastro de funcionarios, cadastro de materiais,
+                cadastro de fornecedores, cadastro de clientes, cadastro de
+                orcamentos, cadastro de compras, cadastro de vendas, cadastro de
+                pagamentos, cadastro de recebimentos, cadastro de despesas,
+                cadastro de receitas, cadastro de contas a pagar, cadastro de
+                contas a receber, cadastro de relatorios, cadastro de usuarios,
               </p>
-              <Link to="/listarConstrucao" className="btn btn-primary">
-                Listar Construções
-              </Link>
-
               <Link to="/signin" className="btn btn-primary">
-                Login
+                Acessar o sistema
               </Link>
             </div>
           </div>

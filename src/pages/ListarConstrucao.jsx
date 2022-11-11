@@ -114,7 +114,7 @@ function ListarConstrucao() {
             </Link>
             <button
               onClick={listarConstrucao}
-              className="btn btn-primary"
+              className="btn btn-danger"
               style={{ marginLeft: "10px" }}
             >
               Listar Construções

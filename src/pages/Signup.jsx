@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   //Liberar o cors
   const config = {
@@ -19,23 +19,28 @@ const SignUp = () => {
     },
   };
 
-  //Deve liberar o cors para que o front-end possa acessar o back-end
-  const handleSubmit = async (e) => {
+  const handleSumit = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "https://api-cloud-gerencia.herokuapp.com/api/auth/signup",
-      {
-        username,
-        email,
-        password,
-      },
-      config
-    );
-    console.log(response);
-    if (response.data.error) {
-      alert("Usuário já cadastrado");
+    try {
+      if (response.status === 200) {
+        return <Navigate to="/signin" />;
+      }
+      const response = await axios.post(
+        "https://api-cloud-gerencia.herokuapp.com/api/auth/signup",
+        {
+          username,
+          email,
+          password,
+        },
+        config
+      );
+    } catch (error) {
+      console.log(error);
     }
   };
+  
+
+  //Se receber um status 200, redireciona para a pagina de login
 
   const limparCampos = () => {
     setUsername("");
@@ -56,7 +61,7 @@ const SignUp = () => {
               </div>
               <div className="row">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSumit}>
                     <div className="form-group">
                       <label htmlFor="username">Nome</label>
                       <input
@@ -95,9 +100,8 @@ const SignUp = () => {
                     <div className="row">
                       <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <button
-                          to="/signin"
                           type="submit"
-                          className="btn btn-primary"
+                          className="btn btn-primary btn-block"
                         >
                           Cadastrar
                         </button>

@@ -21,7 +21,9 @@ const ConsultaConstrucao = () => {
     },
   };
 
-  //"https://api-cloud-gerencia.herokuapp.com/api/construcao/";
+  if (!localStorage.getItem("token")) {
+    navigate("/");
+  }
 
   const handleSearch = async (e) => {
     e.preventDefault();

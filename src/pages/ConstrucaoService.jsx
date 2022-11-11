@@ -63,20 +63,6 @@ const ConstrucaoService = () => {
     }
   };
 
-  //Se estiver preenchido, ele retorna um alerta, e vai para a pagina de listar
-  const validarCampos2 = () => {
-    if (
-      descricao !== "" ||
-      dataInicio !== "" ||
-      dataFim !== "" ||
-      horaInicio !== "" ||
-      horaFim !== ""
-    ) {
-      alert("Construção cadastrada com sucesso!");
-      navigate("/listarConstrucao");
-    }
-  };
-
   const onClickListar = () => {
     navigate("/listarConstrucao");
   };
@@ -154,13 +140,7 @@ const ConstrucaoService = () => {
                   >
                     Cadastrar
                   </button>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={onClickListar}
-                  >
-                    Listar
-                  </button>
+
                   <button
                     type="submit"
                     className="btn btn-primary"
@@ -168,11 +148,6 @@ const ConstrucaoService = () => {
                   >
                     Limpar
                   </button>
-                  <Link to="/signin" onClick={handleLogout}>
-                    <button type="submit" className="btn btn-primary">
-                      Sair
-                    </button>
-                  </Link>
                 </div>
               </form>
             </div>

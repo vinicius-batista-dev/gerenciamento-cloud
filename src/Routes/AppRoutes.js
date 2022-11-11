@@ -10,6 +10,8 @@ import SignIn from "../pages/Signin";
 import SignUp from "../pages/Signup";
 
 import Header from "../components/header/header";
+import Home from "../pages/Home";
+
 import ConstrucaoService from "../pages/ConstrucaoService";
 import ListarConstrucao from "../pages/ListarConstrucao";
 import ConsultaConstrucao from "../pages/ConsultaConstrucao";
@@ -34,6 +36,8 @@ const AppRoutes = () => {
       <Header />
       <Routes>
         <Route path="/signin" element={<SignIn />} isLogged={isLogged} />
+
+        <Route path="/home" element={<Home />} isLogged={isLogged} />
 
         <Route
           path="/construcaoService"

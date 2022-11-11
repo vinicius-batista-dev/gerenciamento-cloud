@@ -41,11 +41,10 @@ function ListarConstrucao() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
   };
-
-  if (loading) return <div>Carregando...</div>;
-
-  if (error) return <div>Erro ao carregar os dados</div>;
 
   const handleDelete = async (id) => {
     try {

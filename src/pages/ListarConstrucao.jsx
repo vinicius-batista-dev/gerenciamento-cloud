@@ -236,11 +236,11 @@ function ListarConstrucao() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="btn btn-danger" onClick={handleClose}>
             Fechar
           </Button>
           <Button variant="primary" onClick={() => handleUpdate(id)}>
-            Save Mudanças
+            Salvar Mudanças
           </Button>
         </Modal.Footer>
       </Modal>

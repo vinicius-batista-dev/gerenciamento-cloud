@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-import SignIn from "../pages/Signin";
 import SignUp from "../pages/Signup";
 
 import Header from "../components/header/header";
@@ -17,6 +16,7 @@ import ListarConstrucao from "../pages/ListarConstrucao";
 import ConsultaConstrucao from "../pages/ConsultaConstrucao";
 
 import { useAuth } from "../contexts/auth";
+import SignIn from "../pages/Signin";
 
 const PrivateRouter = ({ element, redirect, isLogged }) => {
   return <>{isLogged ? element : <Navigate to={redirect} />}</>;
@@ -71,6 +71,7 @@ const AppRoutes = () => {
             />
           }
         />
+
 
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<Navigate to="/home" />} />

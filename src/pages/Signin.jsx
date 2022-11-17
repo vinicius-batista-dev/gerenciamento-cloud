@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import axios from "axios";
 import { Link, redirect } from "react-router-dom";
@@ -7,7 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 import { Navigate } from "react-router-dom";
 
-import { Button, Form } from "react-bootstrap";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -44,45 +53,86 @@ function SignIn() {
 
   const token = localStorage.getItem("token");
   if (token) {
-    return <Navigate to="/listarConstrucao" />;
+    return <Navigate to="/listaConstrucao" />;
   }
 
+  const validarCampos = () => {
+    if (email === "" || password === "") {
+      alert("Preencha todos os campos");
+      return false;
+    }
+  };
+
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4 offset-md-4">
-          <h1 className="text-center">Bem Vindo a Pagina de Login</h1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                required
-                placeholder="Digite o email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Senha</Form.Label>
-              <Form.Control
-                required
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Entrar
-            </Button>
-            <Link to="/signup">Cadastre-se</Link>
-          </Form>
-        </div>
-      </div>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Pagina de Login
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Esqueci minha senha"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={validarCampos}
+          >
+            Logar
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Esqueceu sua senha?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to="/signup" variant="body2">
+                {"Não tem uma conta? Cadastre-se"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

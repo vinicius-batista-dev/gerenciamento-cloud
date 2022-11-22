@@ -3,6 +3,13 @@ import { Link, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import { Modal, Button, Form } from "react-bootstrap";
 
 function ListarConstrucao() {
@@ -102,69 +109,80 @@ function ListarConstrucao() {
     var dataFormatada = new Date(data);
     return dataFormatada.toLocaleDateString();
   };
-
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-12">
             <br />
-            <Link to="/construcaoService" className="btn btn-primary">
-              Nova Construção
-            </Link>
             <button
-              onClick={listarConstrucao}
-              className="btn btn-danger"
-              style={{ marginLeft: "10px" }}
+              type="button"
+              className="btn btn-primary"
+              onClick={() => navigate("/construcaoService")}
             >
-              Listar Construções
+              Cadastrar
             </button>
+            <Button variant="contained" onClick={listarConstrucao}>
+              Listar
+            </Button>
           </div>
         </div>
         <div className="row">
           <div className="col-12">
-            <table className="table table-striped table-dark">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Descrição</th>
-                  <th scope="col">Data Inicio</th>
-                  <th scope="col">Data Fim</th>
-                  <th scope="col">Hora Inicio</th>
-                  <th scope="col">Hora Fim</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {construcao.map((construcao) => (
-                  <tr key={construcao.id}>
-                    <th scope="row">{construcao.id}</th>
-                    <td>{construcao.descricao}</td>
-                    <td>{formatarData(construcao.dataInicio)}</td>
-                    <td>{formatarData(construcao.dataFim)}</td>
-                    <td>{construcao.horaInicio}</td>
-                    <td>{construcao.horaFim}</td>
-                    <td>{construcao.status}</td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleEdit(construcao.id)}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        style={{ marginLeft: "10px" }}
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(construcao.id)}
-                      >
-                        Excluir
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>#</TableCell>
+                    <TableCell align="right">Descrição</TableCell>
+                    <TableCell align="right">Data Início</TableCell>
+                    <TableCell align="right">Data Fim</TableCell>
+                    <TableCell align="right">Hora Início</TableCell>
+                    <TableCell align="right">Hora Fim</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Ações</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {construcao.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.id}
+                      </TableCell>
+                      <TableCell align="right">{row.descricao}</TableCell>
+                      <TableCell align="right">
+                        {formatarData(row.dataInicio)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {formatarData(row.dataFim)}
+                      </TableCell>
+                      <TableCell align="right">{row.horaInicio}</TableCell>
+                      <TableCell align="right">{row.horaFim}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => handleEdit(row.id)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={() => handleDelete(row.id)}
+                        >
+                          Excluir
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </div>
       </div>
@@ -174,61 +192,45 @@ function ListarConstrucao() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>id</Form.Label>
-
-              <Form.Control
-                required
-                type="text"
-                placeholder="Descrição"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-              />
-
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Descrição</Form.Label>
-
               <Form.Control
-                required
                 type="text"
                 placeholder="Descrição"
                 value={descricao}
                 onChange={(e) => setDescricao(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Data Inicio</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Data Início</Form.Label>
               <Form.Control
-                required
                 type="date"
-                placeholder="Data Inicio"
+                placeholder="Data Início"
                 value={dataInicio}
                 onChange={(e) => setDataInicio(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Data Fim</Form.Label>
               <Form.Control
-                required
                 type="date"
                 placeholder="Data Fim"
                 value={dataFim}
                 onChange={(e) => setDataFim(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Hora Inicio</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Hora Início</Form.Label>
               <Form.Control
-                required
                 type="time"
-                placeholder="Hora Inicio"
+                placeholder="Hora Início"
                 value={horaInicio}
                 onChange={(e) => setHoraInicio(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Hora Fim</Form.Label>
               <Form.Control
-                required
                 type="time"
                 placeholder="Hora Fim"
                 value={horaFim}
@@ -238,11 +240,11 @@ function ListarConstrucao() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn btn-danger" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>
-          <Button variant="primary" onClick={() => handleUpdate(id)}>
-            Salvar Mudanças
+          <Button variant="primary" onClick={handleUpdate}>
+            Salvar
           </Button>
         </Modal.Footer>
       </Modal>

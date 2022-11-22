@@ -10,33 +10,38 @@ const ConstrucaoService = () => {
   const [dataFim, setDataFim] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFim, setHoraFim] = useState("");
+  const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      return <Navigate to="/signin" />;
+    const data = {
+      descricao: descricao,
+      dataInicio: dataInicio,
+      dataFim: dataFim,
+      horaInicio: horaInicio,
+      horaFim: horaFim,
+      status: status,
+    };
+    try {
+      const response = await axios.post(
+        "https://api-cloud-gerencia.herokuapp.com/api/construcao/",
+        data,
+        config
+      );
+      navigate("/listarConstrucao");
+    } catch (error) {
+      console.log(error);
     }
-
-    const response = await axios.post(
-      "https://api-cloud-gerencia.herokuapp.com/api/construcao/",
-      {
-        descricao,
-        dataInicio,
-        dataFim,
-        horaInicio,
-        horaFim,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(response);
   };
 
   const limparCampos = () => {
@@ -132,6 +137,19 @@ const ConstrucaoService = () => {
                     onChange={(e) => setHoraFim(e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label>Status</label>
+                  <select
+                    className="form-control"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="0">Selecione</option>
+                    <option value="1">Em Andamento</option>
+                    <option value="2">Finalizada</option>
+                  </select>
+                </div>
+
                 <div className="card-footer">
                   <button
                     type="submit"

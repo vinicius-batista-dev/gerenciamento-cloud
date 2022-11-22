@@ -12,15 +12,16 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Link } from "@mui/material";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  //Liberar o cors
   const config = {
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -28,23 +29,29 @@ const SignUp = () => {
     },
   };
 
-  const handleSumit = async (e) => {
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signup";
+
+  const data = {
+    username,
+    email,
+    password,
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/auth/signup",
-        {
-          username,
-          email,
-          password,
-        },
-        config
-      );
-      if (response.status === 200) {
-        return <Navigate to="/signin" />;
-      }
+      const response = await axios.post(api, data, config);
+      navigate("/signin");
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const validarCampos = () => {
+    if (username === "" || email === "" || password === "") {
+      alert("Preencha todos os campos");
+    } else {
+      handleSubmit();
     }
   };
 
@@ -65,7 +72,8 @@ const SignUp = () => {
         <Typography component="h1" variant="h5">
           Cadastro
         </Typography>
-        <Box component="form" onSubmit={handleSumit} noValidate sx={{ mt: 3 }}>
+
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -74,8 +82,9 @@ const SignUp = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="Username"
+                label="Nome"
                 autoFocus
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>
@@ -87,6 +96,7 @@ const SignUp = () => {
                 label="Email"
                 name="email"
                 autoComplete="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
@@ -95,17 +105,12 @@ const SignUp = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Senha"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="Eu aceito os termos e condições de uso."
               />
             </Grid>
           </Grid>
@@ -113,17 +118,27 @@ const SignUp = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={validarCampos}
             sx={{ mt: 3, mb: 2 }}
           >
             Cadastrar
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Button href="/signin" variant="body2">
-                Já tem uma conta? Entre
-              </Button>
-            </Grid>
+        </Box>
+
+        <Grid container justifyContent="flex-end">
+          <Grid item>
+            <Link href="/signin" variant="body2">
+              Já possui uma conta? Logar
+            </Link>
           </Grid>
+        </Grid>
+
+        <Box sx={{ mt: 5 }}>
+          <Typography variant="body2" color="text.secondary" align="center">
+            {"Cloud Gerencia © "}
+            {new Date().getFullYear()}
+            {"."}
+          </Typography>
         </Box>
       </Box>
     </Container>

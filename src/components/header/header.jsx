@@ -1,6 +1,18 @@
 import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -10,33 +22,68 @@ const Header = () => {
     navigate("/login");
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          Home
-        </Link>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/construcaoService">
-                Construcao
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Container maxWidth="lg">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleClick}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Home</MenuItem>
+              <MenuItem onClick={handleClose}>Funcionários</MenuItem>
+              <MenuItem onClick={handleClose}>Obras</MenuItem>
+              <MenuItem onClick={handleClose}>Produtos</MenuItem>
+            </Menu>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                <AdbIcon /> <b>ConstruTech</b>
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/listarConstrucao">
-                Listar Construcao
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/consultaConstrucao">
-                Consultar Construcao
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+            </Typography>
+            <Tooltip title="Logout">
+              <Button color="inherit" onClick={logout}>
+                <Avatar sx={{ bgcolor: "red" }}>L</Avatar>
+              </Button>
+            </Tooltip>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </Box>
   );
 };
 

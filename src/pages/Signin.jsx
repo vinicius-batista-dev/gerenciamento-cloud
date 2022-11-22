@@ -40,16 +40,21 @@ function SignIn() {
 
   const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signin";
 
+  //apos o login, o toke e o email sao armazenados no localstorage
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post(api, data, config);
-    console.log(response);
-    if (response.data.error) {
-      setError(response.data.error);
-    } else {
-      setToken(response.data.token);
+    try {
+      const response = await axios.post(api, data, config);
+      setToken(response.data.accessToken);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", response.data.email);
+      navigate("/construcaoService");
+    } catch (error) {
+      setError("Email ou senha incorretos");
     }
   };
+
+  //Deve definir outros emails 
 
   const token = localStorage.getItem("token");
   if (token) {

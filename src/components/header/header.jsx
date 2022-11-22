@@ -19,7 +19,7 @@ const Header = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/signin");
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,55 +33,82 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleListarConstrucao = () => {
+    navigate("/listarConstrucao");
+  };
+
+  const handleConstrucaoService = () => {
+    navigate("/construcaoService");
+  };
+
+  const handleConsultarConstrucao = () => {
+    navigate("/consultaConstrucao");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Container maxWidth="lg">
-          <Toolbar>
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleListarConstrucao}>Construção</MenuItem>
+            <MenuItem onClick={handleConstrucaoService}>
+              Construcao Service
+            </MenuItem>
+            <MenuItem onClick={handleConsultarConstrucao}>
+              Consultar Construção
+            </MenuItem>
+            <MenuItem onClick={logout}>Logout</MenuItem>
+          </Menu>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            ConstruTech
+          </Typography>
+          <Tooltip title="Sair">
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleClick}
               sx={{ mr: 2 }}
+              onClick={logout}
             >
-              <MenuIcon />
+              <Avatar sx={{ bgcolor: "red" }}>
+                <AdbIcon />
+              </Avatar>
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Home</MenuItem>
-              <MenuItem onClick={handleClose}>Funcionários</MenuItem>
-              <MenuItem onClick={handleClose}>Obras</MenuItem>
-              <MenuItem onClick={handleClose}>Produtos</MenuItem>
-            </Menu>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                <AdbIcon /> <b>ConstruTech</b>
-              </Link>
-            </Typography>
-            <Tooltip title="Logout">
-              <Button color="inherit" onClick={logout}>
-                <Avatar sx={{ bgcolor: "red" }}>L</Avatar>
-              </Button>
-            </Tooltip>
-          </Toolbar>
-        </Container>
+          </Tooltip>
+        </Toolbar>
       </AppBar>
     </Box>
   );

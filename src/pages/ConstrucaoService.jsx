@@ -147,6 +147,7 @@ const ConstrucaoService = () => {
                     <option value="0">Selecione</option>
                     <option value="1">Em Andamento</option>
                     <option value="2">Finalizada</option>
+                    <option value="3">Cancelada</option>
                   </select>
                 </div>
 

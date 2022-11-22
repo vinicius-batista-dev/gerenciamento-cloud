@@ -108,7 +108,7 @@ function ListarConstrucao() {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h1>Construções</h1>
+            <br />
             <Link to="/construcaoService" className="btn btn-primary">
               Nova Construção
             </Link>
@@ -123,7 +123,7 @@ function ListarConstrucao() {
         </div>
         <div className="row">
           <div className="col-12">
-            <table className="table table-responsive">
+            <table className="table table-striped table-dark">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -132,6 +132,7 @@ function ListarConstrucao() {
                   <th scope="col">Data Fim</th>
                   <th scope="col">Hora Inicio</th>
                   <th scope="col">Hora Fim</th>
+                  <th scope="col">Status</th>
                   <th scope="col">Ações</th>
                 </tr>
               </thead>
@@ -144,6 +145,7 @@ function ListarConstrucao() {
                     <td>{formatarData(construcao.dataFim)}</td>
                     <td>{construcao.horaInicio}</td>
                     <td>{construcao.horaFim}</td>
+                    <td>{construcao.status}</td>
                     <td>
                       <button
                         className="btn btn-primary"

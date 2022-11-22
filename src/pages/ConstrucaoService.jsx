@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Camera from "react-html5-camera-photo";
+import "react-html5-camera-photo/build/css/index.css";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const ConstrucaoService = () => {
   const [descricao, setDescricao] = useState("");
@@ -72,102 +79,137 @@ const ConstrucaoService = () => {
     navigate("/listarConstrucao");
   };
 
+  //Deve salvar a foto no banco de dados
+  const handleTakePhoto = (dataUri) => {
+    // Do stuff with the photo...
+    console.log("takePhoto");
+  };
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-12">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Cadastrar Construção</h3>
+              <h3 className="card-title">Cadastro de Construção</h3>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label>Descrição</label>
-                  <input
-                    required
-                    type="text"
-                    className="form-control"
-                    placeholder="Descrição"
-                    value={descricao}
-                    onChange={(e) => setDescricao(e.target.value)}
-                  />
+                <div className="row">
+                  <div className="col-12">
+                    <div className="form-group">
+                      <label>Descrição</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Descrição"
+                        value={descricao}
+                        onChange={(e) => setDescricao(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Data Inicio</label>
-                  <input
-                    required
-                    type="date"
-                    className="form-control"
-                    placeholder="Data Inicio"
-                    value={dataInicio}
-                    onChange={(e) => setDataInicio(e.target.value)}
-                  />
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label>Data Início</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        placeholder="Data Início"
+                        value={dataInicio}
+                        onChange={(e) => setDataInicio(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label>Data Fim</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        placeholder="Data Fim"
+                        value={dataFim}
+                        onChange={(e) => setDataFim(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Data Fim</label>
-                  <input
-                    required
-                    type="date"
-                    className="form-control"
-                    placeholder="Data Fim"
-                    value={dataFim}
-                    onChange={(e) => setDataFim(e.target.value)}
-                  />
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label>Hora Início</label>
+                      <input
+                        type="time"
+                        className="form-control"
+                        placeholder="Hora Início"
+                        value={horaInicio}
+                        onChange={(e) => setHoraInicio(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label>Hora Fim</label>
+                      <input
+                        type="time"
+                        className="form-control"
+                        placeholder="Hora Fim"
+                        value={horaFim}
+                        onChange={(e) => setHoraFim(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Hora Inicio</label>
-                  <input
-                    required
-                    type="time"
-                    className="form-control"
-                    placeholder="Hora Inicio"
-                    value={horaInicio}
-                    onChange={(e) => setHoraInicio(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Hora Fim</label>
-                  <input
-                    required
-                    type="time"
-                    className="form-control"
-                    placeholder="Hora Fim"
-                    value={horaFim}
-                    onChange={(e) => setHoraFim(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Status</label>
-                  <select
-                    className="form-control"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                  >
-                    <option value="0">Selecione</option>
-                    <option value="1">Em Andamento</option>
-                    <option value="2">Finalizada</option>
-                    <option value="3">Cancelada</option>
-                  </select>
-                </div>
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group">
+                      <label>Status</label>
+                      <select
+                        className="form-control"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <option value="0">Selecione</option>
+                        <option value="1">Em Andamento</option>
+                        <option value="2">Finalizada</option>
+                      </select>
+                    </div>
 
-                <div className="card-footer">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={handleSubmit}
-                  >
-                    Cadastrar
-                  </button>
-
-                  <button
-                    style={{ marginLeft: "10px" }}
-                    type="submit"
-                    className="btn btn-danger"
-                    onClick={limparCampos}
-                  >
-                    Limpar
-                  </button>
+                    <div className="form-group">
+                      <label>Foto</label>
+                      <Camera
+                        onTakePhoto={(dataUri) => {
+                          handleTakePhoto(dataUri);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      onClick={validarCampos}
+                    >
+                      Salvar
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={limparCampos}
+                    >
+                      Limpar
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={onClickListar}
+                    >
+                      Listar
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>

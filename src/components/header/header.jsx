@@ -82,7 +82,9 @@ const Header = () => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleListarConstrucao}>Construção</MenuItem>
+            <MenuItem onClick={handleListarConstrucao}>
+              Listar Construcao
+            </MenuItem>
             <MenuItem onClick={handleConstrucaoService}>
               Construcao Service
             </MenuItem>
@@ -92,7 +94,7 @@ const Header = () => {
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            ConstruTech
+            MSYS
           </Typography>
           <Tooltip title="Sair">
             <IconButton

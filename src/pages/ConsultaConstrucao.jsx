@@ -21,6 +21,7 @@ const ConsultaConstrucao = () => {
     },
   };
 
+
   if (!localStorage.getItem("token")) {
     navigate("/");
   }

@@ -22,6 +22,20 @@ function ListarConstrucao() {
   const [dataFim, setDataFim] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFim, setHoraFim] = useState("");
+  const [nomeDaObra, setNomeDaObra] = useState("");
+  const [categoriaObra, setCategoriaObra] = useState("");
+  const [cep, setCep] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [estado, setEstado] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [email, setEmail] = useState("");
+  const [proprietario, setProprietario] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [valor, setValor] = useState("");
+  const [imagem, setImagem] = useState("");
+  const [status, setStatus] = useState("");
 
   const [error, setError] = useState(null);
 
@@ -35,9 +49,31 @@ function ListarConstrucao() {
 
   const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao/";
 
+  const data = {
+    descricao: descricao,
+    dataInicio: dataInicio,
+    dataFim: dataFim,
+    horaInicio: horaInicio,
+    horaFim: horaFim,
+    nomeDaObra: nomeDaObra,
+    categoriaObra: categoriaObra,
+    cep: cep,
+    bairro: bairro,
+    estado: estado,
+    endereco: endereco,
+    email: email,
+    proprietario: proprietario,
+    telefone: telefone,
+    complemento: complemento,
+    cidade: cidade,
+    valor: valor,
+    imagem: imagem,
+    status: status,
+  };
+
   const listarConstrucao = async () => {
     try {
-      const response = await axios.get(api, config);
+      const response = await axios.get(api, config, data);
       setConstrucao(response.data);
     } catch (error) {
       setError(error);
@@ -93,6 +129,19 @@ function ListarConstrucao() {
           dataFim: dataFim,
           horaInicio: horaInicio,
           horaFim: horaFim,
+          nomeDaObra: nomeDaObra,
+          categoriaObra: categoriaObra,
+          cep: cep,
+          bairro: bairro,
+          estado: estado,
+          endereco: endereco,
+          email: email,
+          proprietario: proprietario,
+          telefone: telefone,
+          complemento: complemento,
+          cidade: cidade,
+          valor: valor,
+          status: status,
         },
         config
       );
@@ -105,10 +154,29 @@ function ListarConstrucao() {
     }
   };
 
-  const formatarData = (data) => {
-    var dataFormatada = new Date(data);
-    return dataFormatada.toLocaleDateString();
+  const formataData = (data) => {
+    const dataFormatada = new Date(data);
+    return dataFormatada.toLocaleDateString("pt-BR");
   };
+
+  //Ao clicar no botao pendente, o status da obra muda para pendent
+  const handlePendente = async (id) => {
+    try {
+      const response = await axios.put(
+        api + id,
+        {
+          status: "pendente",
+        },
+        config
+      );
+      listarConstrucao();
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div className="container">
@@ -139,7 +207,20 @@ function ListarConstrucao() {
                     <TableCell align="right">Data Fim</TableCell>
                     <TableCell align="right">Hora Início</TableCell>
                     <TableCell align="right">Hora Fim</TableCell>
+                    <TableCell align="right">Nome da Obra</TableCell>
+                    <TableCell align="right">Categoria da Obra</TableCell>
+                    <TableCell align="right">CEP</TableCell>
+                    <TableCell align="right">Bairro</TableCell>
+                    <TableCell align="right">Estado</TableCell>
+                    <TableCell align="right">Endereço</TableCell>
+                    <TableCell align="right">Email</TableCell>
+                    <TableCell align="right">Proprietário</TableCell>
+                    <TableCell align="right">Telefone</TableCell>
+                    <TableCell align="right">Complemento</TableCell>
+                    <TableCell align="right">Cidade</TableCell>
+                    <TableCell align="right">Valor</TableCell>
                     <TableCell align="right">Status</TableCell>
+
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -154,13 +235,25 @@ function ListarConstrucao() {
                       </TableCell>
                       <TableCell align="right">{row.descricao}</TableCell>
                       <TableCell align="right">
-                        {formatarData(row.dataInicio)}
+                        {formataData(row.dataInicio)}
                       </TableCell>
                       <TableCell align="right">
-                        {formatarData(row.dataFim)}
+                        {formataData(row.dataFim)}
                       </TableCell>
                       <TableCell align="right">{row.horaInicio}</TableCell>
                       <TableCell align="right">{row.horaFim}</TableCell>
+                      <TableCell align="right">{row.nomeDaObra}</TableCell>
+                      <TableCell align="right">{row.categoriaObra}</TableCell>
+                      <TableCell align="right">{row.cep}</TableCell>
+                      <TableCell align="right">{row.bairro}</TableCell>
+                      <TableCell align="right">{row.estado}</TableCell>
+                      <TableCell align="right">{row.endereco}</TableCell>
+                      <TableCell align="right">{row.email}</TableCell>
+                      <TableCell align="right">{row.proprietario}</TableCell>
+                      <TableCell align="right">{row.telefone}</TableCell>
+                      <TableCell align="right">{row.complemento}</TableCell>
+                      <TableCell align="right">{row.cidade}</TableCell>
+                      <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">
                         <button
@@ -186,6 +279,7 @@ function ListarConstrucao() {
           </div>
         </div>
       </div>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Editar Construção</Modal.Title>

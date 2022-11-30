@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
 import { Button } from "@mui/material";
 import { Form, Modal } from "react-bootstrap";
+import { SearchIcon } from "@mui/icons-material";
+import { Search } from "@material-ui/icons";
 
 const ConsultaConstrucao = () => {
   const [construcao, setConstrucao] = useState([]);
@@ -38,7 +40,7 @@ const ConsultaConstrucao = () => {
   const [valor, setValor] = useState("");
   const [imagem, setImagem] = useState("");
   const [status, setStatus] = useState("");
-
+  const [searched, setSearched] = useState("");
   const navigate = useNavigate();
 
   const config = {
@@ -142,11 +144,20 @@ const ConsultaConstrucao = () => {
     return dataFormatada.toLocaleDateString("pt-BR");
   };
 
-  //Deve buscar os dados da tabela e filtrar conforme o que for digitado no campo de busca
-  const [search, setSearch] = useState("");
+  useEffect(() => {
+    listarConstrucao();
+  }, []);
 
-  const handleChange = (e) => {
-    setSearch(e.target.value);
+  const requestSearch = (searchedVal) => {
+    const filteredRows = construcao.filter((row) => {
+      return row.nomeDaObra.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+    setConstrucao(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
   };
 
   return (
@@ -162,7 +173,11 @@ const ConsultaConstrucao = () => {
             >
               Cadastrar
             </button>
-            <Button variant="contained" onClick={listarConstrucao}>
+            <Button
+              style={{ marginLeft: "10px" }}
+              variant="contained"
+              onClick={listarConstrucao}
+            >
               Listar
             </Button>
           </div>
@@ -170,18 +185,12 @@ const ConsultaConstrucao = () => {
           <br />
           <div className="col-12">
             <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Pesquisar"
-                value={search}
-                onChange={handleChange}
+              <SearchBar
+                placeholder="Buscar"
+                value={searched}
+                onChange={(searchVal) => requestSearch(searchVal)}
+                onCancelSearch={() => cancelSearch()}
               />
-              <div className="input-group-append">
-                <button className="btn btn-primary" type="button">
-                  <i className="fa fa-search"></i>
-                </button>
-              </div>
             </div>
           </div>
         </div>

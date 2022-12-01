@@ -11,7 +11,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-
 const ConstrucaoService = () => {
   const [descricao, setDescricao] = useState("");
   const [dataInicio, setDataInicio] = useState("");
@@ -65,16 +64,12 @@ const ConstrucaoService = () => {
     status: status,
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
+  const api = "http://localhost:4000/api/construcao";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "https://api-cloud-gerencia.herokuapp.com/api/construcao",
-        data,
-        config
-      )
+      .post("http://localhost:4000/api/construcao", data, config)
       .then((response) => {
         console.log(response);
       })

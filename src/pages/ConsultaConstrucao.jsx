@@ -53,7 +53,7 @@ const ConsultaConstrucao = () => {
     navigate("/");
   }
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
+  const api = "http://localhost:4000/api/construcao";
 
   const listarConstrucao = async (e) => {
     e.preventDefault();

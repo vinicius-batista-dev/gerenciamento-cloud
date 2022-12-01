@@ -11,6 +11,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Modal, Button, Form } from "react-bootstrap";
+import { ButtonBase } from "@mui/material";
+import { Delete, Edit } from "@material-ui/icons";
 
 function ListarConstrucao() {
   const [construcao, setConstrucao] = useState([]);
@@ -47,8 +49,6 @@ function ListarConstrucao() {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao/";
-
   const data = {
     descricao: descricao,
     dataInicio: dataInicio,
@@ -73,12 +73,14 @@ function ListarConstrucao() {
 
   const listarConstrucao = async () => {
     try {
-      const response = await axios.get(api, config, data);
+      const response = await axios.get(
+        "http://localhost:4000/api/construcao",
+        config
+      );
       setConstrucao(response.data);
+      setLoading(true);
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -91,89 +93,35 @@ function ListarConstrucao() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(api + id, config);
+      const response = await axios.delete(
+        `http://localhost:4000/api/construcao/${id}`,
+        config
+      );
       listarConstrucao();
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEdit = async (id) => {
-    try {
-      const response = await axios.get(api + id, config);
-      setDescricao(response.data.descricao);
-      setDataInicio(response.data.dataInicio);
-      setDataFim(response.data.dataFim);
-      setHoraInicio(response.data.horaInicio);
-      setHoraFim(response.data.horaFim);
-      setId(response.data.id);
-      setShow(true);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
   const handleClose = () => setShow(false);
-
-  const handleUpdate = async (id) => {
-    try {
-      const response = await axios.put(
-        api + id,
-        {
-          descricao: descricao,
-          dataInicio: dataInicio,
-          dataFim: dataFim,
-          horaInicio: horaInicio,
-          horaFim: horaFim,
-          nomeDaObra: nomeDaObra,
-          categoriaObra: categoriaObra,
-          cep: cep,
-          bairro: bairro,
-          estado: estado,
-          endereco: endereco,
-          email: email,
-          proprietario: proprietario,
-          telefone: telefone,
-          complemento: complemento,
-          cidade: cidade,
-          valor: valor,
-          status: status,
-        },
-        config
-      );
-      listarConstrucao();
-      setShow(false);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const formataData = (data) => {
     const dataFormatada = new Date(data);
     return dataFormatada.toLocaleDateString("pt-BR");
   };
 
-  //Ao clicar no botao pendente, o status da obra muda para pendent
-  const handlePendente = async (id) => {
+  //Update
+  const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        api + id,
-        {
-          status: "pendente",
-        },
+        `http://localhost:4000/api/construcao/${id}`,
+        data,
         config
       );
       listarConstrucao();
+      handleClose();
     } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -256,20 +204,41 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          onClick={() => handleEdit(row.id)}
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            setId(row.id);
+                            setDescricao(row.descricao);
+                            setDataInicio(row.dataInicio);
+                            setDataFim(row.dataFim);
+                            setHoraInicio(row.horaInicio);
+                            setHoraFim(row.horaFim);
+                            setNomeDaObra(row.nomeDaObra);
+                            setCategoriaObra(row.categoriaObra);
+                            setCep(row.cep);
+                            setBairro(row.bairro);
+                            setEstado(row.estado);
+                            setEndereco(row.endereco);
+                            setEmail(row.email);
+                            setProprietario(row.proprietario);
+                            setTelefone(row.telefone);
+                            setComplemento(row.complemento);
+                            setCidade(row.cidade);
+                            setValor(row.valor);
+                            setStatus(row.status);
+                            setShow(true);
+                          }}
                         >
                           Editar
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger"
+                        </Button>
+
+                        <ButtonBase
                           onClick={() => handleDelete(row.id)}
+                          style={{ width: "100%" }}
                         >
-                          Excluir
-                        </button>
+                          <Delete />
+                        </ButtonBase>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -329,6 +298,105 @@ function ListarConstrucao() {
                 placeholder="Hora Fim"
                 value={horaFim}
                 onChange={(e) => setHoraFim(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Nome da Obra</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nome da Obra"
+                value={nomeDaObra}
+                onChange={(e) => setNomeDaObra(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Categoria da Obra</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Categoria da Obra"
+                value={categoriaObra}
+                onChange={(e) => setCategoriaObra(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>CEP</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="CEP"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Bairro</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Bairro"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Estado</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Endereço</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Endereço"
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Proprietário</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Proprietário"
+                value={proprietario}
+                onChange={(e) => setProprietario(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Telefone</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Valor</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Valor"
+                value={valor}
+                onChange={(e) => setValor(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Status</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
               />
             </Form.Group>
           </Form>

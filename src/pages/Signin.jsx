@@ -38,7 +38,7 @@ function SignIn() {
     password,
   };
 
-  const api = "http://localhost:4000/api/auth/signin";
+  const api = " https://api-cloud-gerencia.herokuapp.com/api/auth/signin";
 
   //apos o login, o toke e o email sao armazenados no localstorage
   const handleSubmit = async (e) => {

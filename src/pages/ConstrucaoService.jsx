@@ -64,12 +64,16 @@ const ConstrucaoService = () => {
     status: status,
   };
 
-  const api = "http://localhost:4000/api/construcao";
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:4000/api/construcao", data, config)
+      .post(
+        "https://api-cloud-gerencia.herokuapp.com/api/construcao",
+        data,
+        config
+      )
       .then((response) => {
         console.log(response);
       })
@@ -89,19 +93,26 @@ const ConstrucaoService = () => {
     }
   };
 
-  const converterImagem = (dataUri) => {
-    setImagem(dataUri);
-  };
+  const uploadImage = async (e) => {
+    const files = e.target.files[0];
 
-  //Deve ser criado um componente para a camera
-  const camera = () => {
-    return (
-      <Camera
-        onTakePhoto={(dataUri) => {
-          converterImagem(dataUri);
-        }}
-      />
-    );
+    const convertBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    };
+
+    const base64 = await convertBase64(files);
+    setImagem(base64);
   };
 
   return (
@@ -356,13 +367,13 @@ const ConstrucaoService = () => {
                 </div>
                 <div className="row">
                   <div className="col-12">
-                    <button
-                      style={{ marginTop: "20px" }}
-                      type="submit"
-                      className="btn btn-primary"
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleSubmit}
                     >
-                      Salvar
-                    </button>
+                      Cadastrar
+                    </Button>
                   </div>
                 </div>
               </form>

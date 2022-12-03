@@ -41,6 +41,10 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  const handleHome = () => {
+    navigate("/");
+  };
+
   const handleListarConstrucao = () => {
     navigate("/listarConstrucao");
   };
@@ -82,6 +86,8 @@ const Header = () => {
             open={open}
             onClose={handleClose}
           >
+            <MenuItem onClick={handleHome}>Home</MenuItem>
+
             <MenuItem onClick={handleListarConstrucao}>
               Listar Construcao
             </MenuItem>

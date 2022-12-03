@@ -34,9 +34,6 @@ const Home = () => {
                         Construção de casas, apartamentos, prédios, etc.
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Ver</Button>
-                    </CardActions>
                   </Card>
                 </div>
                 <div className="col-md-4">
@@ -55,9 +52,6 @@ const Home = () => {
                         Construção de casas, apartamentos, prédios, etc.
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Ver</Button>
-                    </CardActions>
                   </Card>
                 </div>
                 <div className="col-md-4">
@@ -76,9 +70,6 @@ const Home = () => {
                         Construção de casas, apartamentos, prédios, etc.
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Ver</Button>
-                    </CardActions>
                   </Card>
                 </div>
               </div>

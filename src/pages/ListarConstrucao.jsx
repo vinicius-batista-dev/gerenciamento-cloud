@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -10,9 +10,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, CardImg } from "react-bootstrap";
 import { ButtonBase } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
+import Base64Downloader from "react-base64-downloader";
+import ReactImageBase64 from "react-image-base64";
 
 function ListarConstrucao() {
   const [construcao, setConstrucao] = useState([]);
@@ -36,10 +38,9 @@ function ListarConstrucao() {
   const [complemento, setComplemento] = useState("");
   const [cidade, setCidade] = useState("");
   const [valor, setValor] = useState("");
-  const [imagem, setImagem] = useState("");
   const [status, setStatus] = useState("");
-
   const [error, setError] = useState(null);
+  const [imagem, setImagem] = useState({ data: [] });
 
   const navigate = useNavigate();
 
@@ -48,6 +49,8 @@ function ListarConstrucao() {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
   };
+
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
 
   const data = {
     descricao: descricao,
@@ -71,17 +74,17 @@ function ListarConstrucao() {
     status: status,
   };
 
-  const listarConstrucao = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:4000/api/construcao",
-        config
-      );
-      setConstrucao(response.data);
-      setLoading(true);
-    } catch (error) {
-      console.log(error);
-    }
+  //Deve listar a construcao com a imagem
+  const listarConstrucao = () => {
+    axios
+      .get(api, config)
+      .then((response) => {
+        setConstrucao(response.data);
+        setLoading(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleLogout = () => {
@@ -94,7 +97,7 @@ function ListarConstrucao() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/construcao/${id}`,
+        `https://api-cloud-gerencia.herokuapp.com/api/construcao/${id}`,
         config
       );
       listarConstrucao();
@@ -110,16 +113,24 @@ function ListarConstrucao() {
     return dataFormatada.toLocaleDateString("pt-BR");
   };
 
-  //Update
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:4000/api/construcao/${id}`,
-        data,
-        config
-      );
+      const response = await axios.put(api + "/" + id, data, config);
       listarConstrucao();
       handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //deve listar a a imgem da construcao
+  const listarImagem = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://api-cloud-gerencia.herokuapp.com/api/construcao/${id}/imagem`,
+        config
+      );
+      setImagem(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -167,8 +178,8 @@ function ListarConstrucao() {
                     <TableCell align="right">Complemento</TableCell>
                     <TableCell align="right">Cidade</TableCell>
                     <TableCell align="right">Valor</TableCell>
+                    <TableCell align="right">Imagem</TableCell>
                     <TableCell align="right">Status</TableCell>
-
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -202,7 +213,18 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.complemento}</TableCell>
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
+                      <TableCell align="right">
+                        <img
+                          src={row.imagem}
+                          alt="imagem"
+                          width="100"
+                          height="100"
+                        />
+                      </TableCell>
                       <TableCell align="right">{row.status}</TableCell>
+
+                      <TableCell align="right"></TableCell>
+
                       <TableCell align="right">
                         <Button
                           variant="contained"

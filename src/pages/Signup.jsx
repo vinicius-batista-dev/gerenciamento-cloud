@@ -29,7 +29,7 @@ const SignUp = () => {
     },
   };
 
-  const api = "http://localhost:4000/api/auth/signup";
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signup";
 
   const data = {
     username,

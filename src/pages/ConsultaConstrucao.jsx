@@ -246,11 +246,8 @@ const ConsultaConstrucao = () => {
                                     <td>{construcao.proprietario}</td>
                                     <td>{construcao.telefone}</td>
                                     <td>{construcao.endereco}</td>
-                                    <td>
-                                      <span className="badge badge-soft-success font-size-12">
-                                        {construcao.status}
-                                      </span>
-                                    </td>
+                                    <td>{construcao.status}</td>
+
                                     <td>
                                       <div className="button-items">
                                         <button

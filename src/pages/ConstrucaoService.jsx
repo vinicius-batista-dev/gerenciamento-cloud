@@ -353,18 +353,8 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Imagem</label>
-                      <input
-                        type="file"
-                        className="form-control"
-                        placeholder="Imagem"
-                        onChange={(e) => setImagem(e.target.files[0])}
-                      />
-                    </div>
-                  </div>
                 </div>
+                <br />
                 <div className="row">
                   <div className="col-12">
                     <Button

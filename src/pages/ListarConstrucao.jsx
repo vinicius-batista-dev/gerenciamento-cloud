@@ -15,6 +15,7 @@ import { ButtonBase } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
 import Base64Downloader from "react-base64-downloader";
 import ReactImageBase64 from "react-image-base64";
+import { TableView } from "@mui/icons-material";
 
 function ListarConstrucao() {
   const [construcao, setConstrucao] = useState([]);
@@ -213,14 +214,6 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.complemento}</TableCell>
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
-                      <TableCell align="right">
-                        <img
-                          src={row.imagem}
-                          alt="imagem"
-                          width="100"
-                          height="100"
-                        />
-                      </TableCell>
                       <TableCell align="right">{row.status}</TableCell>
 
                       <TableCell align="right"></TableCell>

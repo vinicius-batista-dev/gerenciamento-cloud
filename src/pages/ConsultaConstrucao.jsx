@@ -15,6 +15,7 @@ import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Visibility } from "@material-ui/icons";
 import { Delete } from "@mui/icons-material";
+import jsPDF from "jspdf";
 
 const ConsultaConstrucao = () => {
   const [construcao, setConstrucao] = useState([]);
@@ -177,9 +178,28 @@ const ConsultaConstrucao = () => {
       });
   };
 
+  const pdf = () => {
+    const doc = new jsPDF();
+    doc.text(20, 20, "Nome da Obra: " + nomeDaObra);
+    doc.text(20, 30, "Descrição: " + descricao);
+    doc.text(20, 40, "Data de Inicio: " + dataInicio);
+    doc.text(20, 50, "Data de Fim: " + dataFim);
+    doc.text(20, 60, "Hora de Inicio: " + horaInicio);
+    doc.text(20, 70, "Hora de Fim: " + horaFim);
+    doc.text(20, 80, "Categoria da Obra: " + categoriaObra);
+    doc.text(20, 90, "CEP: " + cep);
+    doc.text(20, 100, "Bairro: " + bairro);
+
+    doc.save("construcao.pdf");
+  };
+
   useEffect(() => {
     getConstrucao();
   }, []);
+
+  const gerarRelatorio = () => {
+    pdf();
+  };
 
   return (
     <div>
@@ -259,25 +279,6 @@ const ConsultaConstrucao = () => {
                                           }}
                                         >
                                           <i className="bx bx-show-alt"></i>
-                                        </button>
-                                        <Link
-                                          to={
-                                            "/construcao/editar/" +
-                                            construcao.id
-                                          }
-                                          className="btn btn-success btn-sm waves-effect waves-light"
-                                        >
-                                          <i className="bx bx-edit"></i>
-                                        </Link>
-                                        <button
-                                          type="button"
-                                          className="btn btn-danger btn-sm waves-effect waves-light"
-                                          onClick={() => {
-                                            abrirModal(construcao.id);
-                                            handleShowDelete();
-                                          }}
-                                        >
-                                          <i className="bx bx-trash"></i>
                                         </button>
                                       </div>
                                     </td>
@@ -492,6 +493,10 @@ const ConsultaConstrucao = () => {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Fechar
+          </Button>
+          {/* gerarRelatorio */}
+          <Button variant="primary" onClick={pdf}>
+            Gerar Relatório
           </Button>
         </Modal.Footer>
       </Modal>

@@ -23,12 +23,12 @@ const Home = () => {
                     <CardMedia
                       component="img"
                       height="140"
-                      image="https://diariodorio.com/wp-content/uploads/2019/08/Antenas-no-Sumar%C3%A9.jpg"
+                      image="https://static.hbt.triider.com.br/photos/business/medium/planta-de-casa-belem-103-1847728.jpg"
                       alt="green iguana"
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        Antenas
+                        Casas
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Construção de casas, apartamentos, prédios, etc.

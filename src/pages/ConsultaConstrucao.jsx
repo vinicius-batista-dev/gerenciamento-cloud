@@ -213,7 +213,7 @@ const ConsultaConstrucao = () => {
                           <div className="col-sm-12">
                             <div className="text-sm-right">
                               <Link
-                                to="/construcao/cadastrar"
+                                to="/construcaoService"
                                 className="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"
                               >
                                 <i className="mdi mdi-plus mr-1"></i> Cadastrar
@@ -342,9 +342,21 @@ const ConsultaConstrucao = () => {
                                     aria-controls="datatable"
                                     data-dt-idx="2"
                                     tabIndex="0"
+                                    Waiting
                                     className="page-link"
                                   >
                                     2
+                                  </a>
+                                </li>
+                                <li className="paginate_button page-item ">
+                                  <a
+                                    href="#"
+                                    aria-controls="datatable"
+                                    data-dt-idx="3"
+                                    tabIndex="0"
+                                    className="page-link"
+                                  >
+                                    3
                                   </a>
                                 </li>
                               </ul>

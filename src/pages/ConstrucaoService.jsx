@@ -121,6 +121,37 @@ const ConstrucaoService = () => {
     return <Navigate to="/signin" />;
   }
 
+  //Ao clicar em cadastrar, deve emitir um alerta caso os campos não estejam preenchidos
+  const salvar = () => {
+    if (
+      descricao === "" ||
+      dataInicio === "" ||
+      dataFim === "" ||
+      horaInicio === "" ||
+      horaFim === "" ||
+      nomeDaObra === "" ||
+      categoriaObra === "" ||
+      cep === "" ||
+      bairro === "" ||
+      estado === "" ||
+      endereco === "" ||
+      email === "" ||
+      proprietario === "" ||
+      telefone === "" ||
+      complemento === "" ||
+      cidade === "" ||
+      valor === "" ||
+      imagem === "" ||
+      status === ""
+    ) {
+      alert("Preencha todos os campos!");
+    } else {
+      handleSubmit();
+      alert("Cadastro realizado com sucesso!");
+      navigate("/construcaoService");
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -367,9 +398,10 @@ const ConstrucaoService = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleSubmit}
+                      onClick={salvar}
+                      className="btn btn-primary"
                     >
-                      Cadastrar
+                      Salvar
                     </Button>
                   </div>
                 </div>

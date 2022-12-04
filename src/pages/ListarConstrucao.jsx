@@ -11,7 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Modal, Button, Form, CardImg } from "react-bootstrap";
-import { ButtonBase } from "@mui/material";
+import { ButtonBase, Select } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
 import Base64Downloader from "react-base64-downloader";
 import ReactImageBase64 from "react-image-base64";
@@ -71,7 +71,6 @@ function ListarConstrucao() {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
-    imagem: imagem,
     status: status,
   };
 
@@ -137,6 +136,11 @@ function ListarConstrucao() {
     }
   };
 
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div>
       <div className="container">
@@ -179,7 +183,6 @@ function ListarConstrucao() {
                     <TableCell align="right">Complemento</TableCell>
                     <TableCell align="right">Cidade</TableCell>
                     <TableCell align="right">Valor</TableCell>
-                    <TableCell align="right">Imagem</TableCell>
                     <TableCell align="right">Status</TableCell>
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
@@ -215,8 +218,6 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
-
-                      <TableCell align="right"></TableCell>
 
                       <TableCell align="right">
                         <Button
@@ -326,12 +327,16 @@ function ListarConstrucao() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Categoria da Obra</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Categoria da Obra"
+              <Form.Select
+                aria-label="Default select example"
                 value={categoriaObra}
                 onChange={(e) => setCategoriaObra(e.target.value)}
-              />
+              >
+                <option value="Construcao">Construcao</option>
+                <option value="Reforma">Reforma</option>
+                <option value="Manutencao">Manutencao</option>
+                <option value="Demolicao">Demolicao</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>CEP</Form.Label>
@@ -407,12 +412,16 @@ function ListarConstrucao() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Status</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Status"
+              <Form.Select
+                aria-label="Default select example"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-              />
+              >
+                <option value="Em Progresso">Em Progresso</option>
+                <option value="Finalizado">Finalizado</option>
+                <option value="Cancelado">Cancelado</option>
+                <option value="Pendente">Pendente</option>
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>

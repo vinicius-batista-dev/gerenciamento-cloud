@@ -115,6 +115,12 @@ const ConstrucaoService = () => {
     setImagem(base64);
   };
 
+  //Deve emitir um alerta caso o usuário não esteja logado
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -196,9 +202,10 @@ const ConstrucaoService = () => {
                         onChange={(e) => setStatus(e.target.value)}
                       >
                         <option value="0">Selecione</option>
-                        <option value="Andamento">Em Andamento</option>
+                        <option value="Em progresso">Em progresso</option>
                         <option value="Finalizado">Finalizado</option>
                         <option value="Cancelado">Cancelado</option>
+                        <option value="Pendente">Pendente</option>
                       </select>
                     </div>
                   </div>

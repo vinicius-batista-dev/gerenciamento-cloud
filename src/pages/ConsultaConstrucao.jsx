@@ -201,6 +201,16 @@ const ConsultaConstrucao = () => {
     pdf();
   };
 
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
+  const formatarData = (data) => {
+    const dataFormatada = new Date(data);
+    return dataFormatada.toLocaleDateString("pt-BR");
+  };
+
   return (
     <div>
       <div className="container">
@@ -211,7 +221,7 @@ const ConsultaConstrucao = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="page-title-box d-flex align-items-center justify-content-between">
-                      <h4 className="mb-0 font-size-18">Construções</h4>
+                      <h4 className="mb-0 font-size-18">Relatorio</h4>
                       <div className="page-title-right">
                         <ol className="breadcrumb m-0">
                           <li className="breadcrumb-item">
@@ -436,7 +446,7 @@ const ConsultaConstrucao = () => {
               <div className="form-group">
                 <label htmlFor="dataInicio">Data de Início</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control"
                   id="dataInicio"
                   name="dataInicio"

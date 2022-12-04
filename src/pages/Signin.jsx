@@ -68,6 +68,11 @@ function SignIn() {
     }
   };
 
+  //Apos logar deve atualizar a pagina
+  if (token) {
+    window.location.reload();
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

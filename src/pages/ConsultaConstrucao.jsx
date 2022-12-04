@@ -11,10 +11,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
-import { Button } from "@mui/material";
-import { Form, Modal } from "react-bootstrap";
-import { SearchIcon } from "@mui/icons-material";
-import { Search } from "@material-ui/icons";
+import { Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Visibility } from "@material-ui/icons";
+import { Delete } from "@mui/icons-material";
 
 const ConsultaConstrucao = () => {
   const [construcao, setConstrucao] = useState([]);
@@ -49,104 +49,10 @@ const ConsultaConstrucao = () => {
     },
   };
 
+  //Verificar o token e atualizar a pagina
   if (!localStorage.getItem("token")) {
     navigate("/");
   }
-
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/costrucao";
-
-  const listarConstrucao = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    await axios
-      .get(api, config)
-      .then((response) => {
-        setConstrucao(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleClose = () => setShow(false);
-
-  const handleShow = (id) => {
-    setId(id);
-    setShow(true);
-  };
-
-  const handleDelete = async (id) => {
-    await axios.delete(api + "/" + id, config).then((response) => {
-      listarConstrucao();
-      handleClose();
-    });
-  };
-
-  const handleEdit = async (id) => {
-    await axios.get(api + "/" + id, config).then((response) => {
-      setId(response.data.id);
-      setDescricao(response.data.descricao);
-      setDataInicio(response.data.dataInicio);
-      setDataFim(response.data.dataFim);
-      setHoraInicio(response.data.horaInicio);
-      setHoraFim(response.data.horaFim);
-      setNomeDaObra(response.data.nomeDaObra);
-      setCategoriaObra(response.data.categoriaObra);
-      setCep(response.data.cep);
-      setBairro(response.data.bairro);
-      setEstado(response.data.estado);
-      setEndereco(response.data.endereco);
-      setEmail(response.data.email);
-      setProprietario(response.data.proprietario);
-      setTelefone(response.data.telefone);
-      setComplemento(response.data.complemento);
-      setCidade(response.data.cidade);
-      setValor(response.data.valor);
-      setImagem(response.data.imagem);
-      setStatus(response.data.status);
-      handleClose();
-    });
-  };
-
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    const data = {
-      id: id,
-      descricao: descricao,
-      dataInicio: dataInicio,
-      dataFim: dataFim,
-      horaInicio: horaInicio,
-      horaFim: horaFim,
-      nomeDaObra: nomeDaObra,
-      categoriaObra: categoriaObra,
-      cep: cep,
-      bairro: bairro,
-      estado: estado,
-      endereco: endereco,
-      email: email,
-      proprietario: proprietario,
-      telefone: telefone,
-      complemento: complemento,
-      cidade: cidade,
-      valor: valor,
-      imagem: imagem,
-      status: status,
-    };
-
-    await axios.put(api, data, config).then((response) => {
-      listarConstrucao();
-    });
-  };
-
-  const formataData = (data) => {
-    const dataFormatada = new Date(data);
-    return dataFormatada.toLocaleDateString("pt-BR");
-  };
-
-  useEffect(() => {
-    listarConstrucao();
-  }, []);
 
   const requestSearch = (searchedVal) => {
     const filteredRows = construcao.filter((row) => {
@@ -160,184 +66,423 @@ const ConsultaConstrucao = () => {
     requestSearch(searched);
   };
 
+  const handleShow = (id) => {
+    setShow(true);
+    setId(id);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const showModal = (id) => {
+    axios
+      .get(`http://localhost:5000/api/construcao/${id}`, config)
+      .then((response) => {
+        setDescricao(response.data.descricao);
+        setDataInicio(response.data.dataInicio);
+        setDataFim(response.data.dataFim);
+        setHoraInicio(response.data.horaInicio);
+        setHoraFim(response.data.horaFim);
+        setNomeDaObra(response.data.nomeDaObra);
+        setCategoriaObra(response.data.categoriaObra);
+        setCep(response.data.cep);
+        setBairro(response.data.bairro);
+        setEstado(response.data.estado);
+        setEndereco(response.data.endereco);
+        setEmail(response.data.email);
+        setProprietario(response.data.proprietario);
+        setTelefone(response.data.telefone);
+        setComplemento(response.data.complemento);
+        setCidade(response.data.cidade);
+        setValor(response.data.valor);
+        setImagem(response.data.imagem);
+        setStatus(response.data.status);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  };
+
+  const handleCloseModal = () => {
+    setShow(false);
+  };
+
+  const handleShowDelete = (id) => {
+    setId(id);
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(
+        "https://api-cloud-gerencia.herokuapp.com/api/construcao/" + id,
+        config
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Construção deletada com sucesso!");
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const abrirModal = (id) => {
+    axios
+      .get(
+        "https://api-cloud-gerencia.herokuapp.com/api/construcao/" + id,
+        config
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setDescricao(response.data.descricao);
+          setDataInicio(response.data.dataInicio);
+          setDataFim(response.data.dataFim);
+          setHoraInicio(response.data.horaInicio);
+          setHoraFim(response.data.horaFim);
+          setNomeDaObra(response.data.nomeDaObra);
+          setCategoriaObra(response.data.categoriaObra);
+          setCep(response.data.cep);
+          setBairro(response.data.bairro);
+          setEstado(response.data.estado);
+          setEndereco(response.data.endereco);
+          setEmail(response.data.email);
+          setProprietario(response.data.proprietario);
+          setTelefone(response.data.telefone);
+          setComplemento(response.data.complemento);
+          setCidade(response.data.cidade);
+          setValor(response.data.valor);
+          setImagem(response.data.imagem);
+          setStatus(response.data.status);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getConstrucao = () => {
+    axios
+      .get("https://api-cloud-gerencia.herokuapp.com/api/construcao", config)
+      .then((response) => {
+        if (response.status === 200) {
+          setConstrucao(response.data);
+          setLoading(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getConstrucao();
+  }, []);
+
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <br />
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => navigate("/construcaoService")}
-            >
-              Cadastrar
-            </button>
-            <Button
-              style={{ marginLeft: "10px" }}
-              variant="contained"
-              onClick={listarConstrucao}
-            >
-              Listar
-            </Button>
-          </div>
-          <br />
-          <br />
-          <div className="col-12">
-            <div className="input-group">
-              <SearchBar
-                placeholder="Buscar"
-                value={searched}
-                onChange={(searchVal) => requestSearch(searchVal)}
-                onCancelSearch={() => cancelSearch()}
-              />
+            <div className="card">
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="page-title-box d-flex align-items-center justify-content-between">
+                      <h4 className="mb-0 font-size-18">Construções</h4>
+                      <div className="page-title-right">
+                        <ol className="breadcrumb m-0">
+                          <li className="breadcrumb-item">
+                            <Link to="/dashboard">Dashboard</Link>
+                          </li>
+                          <li className="breadcrumb-item active">
+                            Construções
+                          </li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <div className="card">
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col-sm-12">
+                            <div className="text-sm-right">
+                              <Link
+                                to="/construcao/cadastrar"
+                                className="btn btn-success btn-rounded waves-effect waves-light mb-2 mr-2"
+                              >
+                                <i className="mdi mdi-plus mr-1"></i> Cadastrar
+                                Construção
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="table-responsive">
+                          <table className="table table-centered table-nowrap mb-0">
+                            <thead className="thead-light">
+                              <tr>
+                                <th>Nome da Obra</th>
+                                <th>Proprietário</th>
+                                <th>Telefone</th>
+                                <th>Endereço</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {loading ? (
+                                construcao.map((construcao) => (
+                                  <tr key={construcao.id}>
+                                    <td>
+                                      <h5 className="text-truncate font-size-14">
+                                        {construcao.nomeDaObra}
+                                      </h5>
+                                    </td>
+                                    <td>{construcao.proprietario}</td>
+                                    <td>{construcao.telefone}</td>
+                                    <td>{construcao.endereco}</td>
+                                    <td>
+                                      <span className="badge badge-soft-success font-size-12">
+                                        {construcao.status}
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <div className="button-items">
+                                        <button
+                                          type="button"
+                                          className="btn btn-primary btn-sm waves-effect waves-light"
+                                          onClick={() => {
+                                            abrirModal(construcao.id);
+                                            handleShow();
+                                          }}
+                                        >
+                                          <i className="bx bx-show-alt"></i>
+                                        </button>
+                                        <Link
+                                          to={
+                                            "/construcao/editar/" +
+                                            construcao.id
+                                          }
+                                          className="btn btn-success btn-sm waves-effect waves-light"
+                                        >
+                                          <i className="bx bx-edit"></i>
+                                        </Link>
+                                        <button
+                                          type="button"
+                                          className="btn btn-danger btn-sm waves-effect waves-light"
+                                          onClick={() => {
+                                            abrirModal(construcao.id);
+                                            handleShowDelete();
+                                          }}
+                                        >
+                                          <i className="bx bx-trash"></i>
+                                        </button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>
+                                  <td colSpan="6">Carregando...</td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                        <div className="row">
+                          <div className="col-sm-12 col-md-5">
+                            <div
+                              className="dataTables_info"
+                              id="datatable_info"
+                              role="status"
+                              aria-live="polite"
+                            >
+                              Mostrando 1 a 10 de 57 entradas
+                            </div>
+                          </div>
+                          <div className="col-sm-12 col-md-7">
+                            <div
+                              className="dataTables_paginate paging_simple_numbers"
+                              id="datatable_paginate"
+                            >
+                              <ul className="pagination">
+                                <li
+                                  className="paginate_button page-item previous disabled"
+                                  id="datatable_previous"
+                                >
+                                  <a
+                                    href="#"
+                                    aria-controls="datatable"
+                                    data-dt-idx="0"
+                                    tabIndex="0"
+                                    className="page-link"
+                                  >
+                                    Anterior
+                                  </a>
+                                </li>
+                                <li className="paginate_button page-item active">
+                                  <a
+                                    href="#"
+                                    aria-controls="datatable"
+                                    data-dt-idx="1"
+                                    tabIndex="0"
+                                    className="page-link"
+                                  >
+                                    1
+                                  </a>
+                                </li>
+                                <li className="paginate_button page-item ">
+                                  <a
+                                    href="#"
+                                    aria-controls="datatable"
+                                    data-dt-idx="2"
+                                    tabIndex="0"
+                                    className="page-link"
+                                  >
+                                    2
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-12">
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell align="right">Descrição</TableCell>
-                    <TableCell align="right">Data Início</TableCell>
-                    <TableCell align="right">Data Fim</TableCell>
-                    <TableCell align="right">Hora Início</TableCell>
-                    <TableCell align="right">Hora Fim</TableCell>
-                    <TableCell align="right">Nome da Obra</TableCell>
-                    <TableCell align="right">Categoria da Obra</TableCell>
-                    <TableCell align="right">CEP</TableCell>
-                    <TableCell align="right">Bairro</TableCell>
-                    <TableCell align="right">Estado</TableCell>
-                    <TableCell align="right">Endereço</TableCell>
-                    <TableCell align="right">Email</TableCell>
-                    <TableCell align="right">Proprietário</TableCell>
-                    <TableCell align="right">Telefone</TableCell>
-                    <TableCell align="right">Complemento</TableCell>
-                    <TableCell align="right">Cidade</TableCell>
-                    <TableCell align="right">Valor</TableCell>
-                    <TableCell align="right">Status</TableCell>
-
-                    <TableCell align="right">Ações</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {construcao.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.id}
-                      </TableCell>
-                      <TableCell align="right">{row.descricao}</TableCell>
-                      <TableCell align="right">
-                        {formataData(row.dataInicio)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {formataData(row.dataFim)}
-                      </TableCell>
-                      <TableCell align="right">{row.horaInicio}</TableCell>
-                      <TableCell align="right">{row.horaFim}</TableCell>
-                      <TableCell align="right">{row.nomeDaObra}</TableCell>
-                      <TableCell align="right">{row.categoriaObra}</TableCell>
-                      <TableCell align="right">{row.cep}</TableCell>
-                      <TableCell align="right">{row.bairro}</TableCell>
-                      <TableCell align="right">{row.estado}</TableCell>
-                      <TableCell align="right">{row.endereco}</TableCell>
-                      <TableCell align="right">{row.email}</TableCell>
-                      <TableCell align="right">{row.proprietario}</TableCell>
-                      <TableCell align="right">{row.telefone}</TableCell>
-                      <TableCell align="right">{row.complemento}</TableCell>
-                      <TableCell align="right">{row.cidade}</TableCell>
-                      <TableCell align="right">{row.valor}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
-                      <TableCell align="right">
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          onClick={() => handleEdit(row.id)}
-                        >
-                          Editar
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger"
-                          onClick={() => handleDelete(row.id)}
-                        >
-                          Excluir
-                        </button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </div>
       </div>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Construção</Modal.Title>
+          <Modal.Title>Detalhes da Construção</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Descrição</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Descrição"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Data Início</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Data Início"
-                value={dataInicio}
-                onChange={(e) => setDataInicio(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Data Fim</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Data Fim"
-                value={dataFim}
-                onChange={(e) => setDataFim(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Hora Início</Form.Label>
-              <Form.Control
-                type="time"
-                placeholder="Hora Início"
-                value={horaInicio}
-                onChange={(e) => setHoraInicio(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Hora Fim</Form.Label>
-              <Form.Control
-                type="time"
-                placeholder="Hora Fim"
-                value={horaFim}
-                onChange={(e) => setHoraFim(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="nomeDaObra">Nome da Obra</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="nomeDaObra"
+                  name="nomeDaObra"
+                  value={nomeDaObra}
+                  onChange={(e) => setNomeDaObra(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="proprietario">Proprietário</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="proprietario"
+                  name="proprietario"
+                  value={proprietario}
+                  onChange={(e) => setProprietario(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="telefone">Telefone</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="telefone"
+                  name="telefone"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="endereco">Endereço</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="endereco"
+                  name="endereco"
+                  value={endereco}
+                  onChange={(e) => setEndereco(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="dataInicio">Data de Início</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="dataInicio"
+                  name="dataInicio"
+                  value={dataInicio}
+                  onChange={(e) => setDataInicio(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="dataFim">Data de Fim</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="dataFim"
+                  name="dataFim"
+                  value={dataFim}
+                  onChange={(e) => setDataFim(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="valor">Valor</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="valor"
+                  name="valor"
+                  value={valor}
+                  onChange={(e) => setValor(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="col-md-12">
+              <div className="form-group">
+                <label htmlFor="status">Status</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="status"
+                  name="status"
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Fechar
-          </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Salvar
           </Button>
         </Modal.Footer>
       </Modal>

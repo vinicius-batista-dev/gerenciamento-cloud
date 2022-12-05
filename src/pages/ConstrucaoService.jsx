@@ -1,22 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import useForm from "react-hook-form";
-import { Form } from "react-bootstrap";
-import { Button } from "@material-ui/core";
-import { CheckBox } from "@material-ui/icons";
-import { RadioGroup } from "@mui/material";
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  TextField,
-  Grid,
-  Paper,
-  Typography,
-} from "@material-ui/core";
 
 const ConstrucaoService = () => {
   const [descricao, setDescricao] = useState("");
@@ -76,28 +60,30 @@ const ConstrucaoService = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
-        "https://api-cloud-gerencia.herokuapp.com/api/construcao",
-        data,
-        config
-      )
+      .post(api, data, config)
       .then((response) => {
         console.log(response);
+        navigate("/construcao");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const validarCep = async (e) => {
-    const cep = e.target.value;
-    if (cep.length === 8) {
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      setEndereco(response.data.logradouro);
-      setBairro(response.data.bairro);
-      setCidade(response.data.localidade);
-      setEstado(response.data.uf);
-    }
+  //Ao digitar o cep, ele busca os dados do endereço
+  const handleCep = (e) => {
+    setCep(e.target.value);
+    axios
+      .get(`https://viacep.com.br/ws/${e.target.value}/json/`)
+      .then((response) => {
+        setBairro(response.data.bairro);
+        setEstado(response.data.uf);
+        setEndereco(response.data.logradouro);
+        setCidade(response.data.localidade);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //Deve emitir um alerta caso o usuário não esteja logado
@@ -106,8 +92,8 @@ const ConstrucaoService = () => {
     return <Navigate to="/signin" />;
   }
 
-  //Ao clicar em cadastrar, deve emitir um alerta caso os campos não estejam preenchidos
-  const salvar = () => {
+  //Deve emitir um alerta caso os campos não estejam preenchidos
+  const validarCampos = () => {
     if (
       descricao === "" ||
       dataInicio === "" ||
@@ -130,11 +116,21 @@ const ConstrucaoService = () => {
       status === ""
     ) {
       alert("Preencha todos os campos!");
-    } else {
-      handleSubmit();
-      alert("Cadastro realizado com sucesso!");
-      navigate("/construcaoService");
+      return false;
     }
+    return true;
+  };
+
+  const listarEstados = (e) => {
+    e.preventDefault();
+    axios
+      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -186,17 +182,20 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="row">
                   <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Hora de Início</label>
                       <input
                         type="time"
                         className="form-control"
+                        placeholder="Hora de Início"
                         value={horaInicio}
                         onChange={(e) => setHoraInicio(e.target.value)}
                       />
+                      <small className="form-text text-muted">
+                        Exemplo: 08:00
+                      </small>
+                      <br />
                     </div>
                   </div>
                   <div className="col-md-6 pl-1">
@@ -205,13 +204,16 @@ const ConstrucaoService = () => {
                       <input
                         type="time"
                         className="form-control"
+                        placeholder="Hora de Término"
                         value={horaFim}
                         onChange={(e) => setHoraFim(e.target.value)}
                       />
+                      <small className="form-text text-muted">
+                        Exemplo: 18:00
+                      </small>
+                      <br />
                     </div>
                   </div>
-                </div>
-                <div className="row">
                   <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Nome da Obra</label>
@@ -232,14 +234,13 @@ const ConstrucaoService = () => {
                         value={categoriaObra}
                         onChange={(e) => setCategoriaObra(e.target.value)}
                       >
+                        <option value="0">Selecione</option>
                         <option value="Residencial">Residencial</option>
                         <option value="Comercial">Comercial</option>
                         <option value="Industrial">Industrial</option>
                       </select>
                     </div>
                   </div>
-                </div>
-                <div className="row">
                   <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>CEP</label>
@@ -248,10 +249,7 @@ const ConstrucaoService = () => {
                         className="form-control"
                         placeholder="CEP"
                         value={cep}
-                        onChange={(e) => {
-                          setCep(e.target.value);
-                          validarCep(e);
-                        }}
+                        onChange={(e) => setCep(e.target.value)}
                       />
                     </div>
                   </div>
@@ -267,21 +265,57 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-4 pr-1">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Estado</label>
+                      <select
+                        className="form-control"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                      >
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-md-6 pl-1">
+                    <div className="form-group">
+                      <label>Cidade</label>
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Estado"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
+                        placeholder="Cidade"
+                        value={cidade}
+                        onChange={(e) => setCidade(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-md-4 px-1">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Endereço</label>
                       <input
@@ -291,10 +325,27 @@ const ConstrucaoService = () => {
                         value={endereco}
                         onChange={(e) => setEndereco(e.target.value)}
                       />
+                      <small className="form-text text-muted">
+                        Exemplo: Rua das Flores, 123
+                      </small>
                     </div>
                   </div>
-
-                  <div className="col-md-4 pl-1">
+                  <div className="col-md-6 pl-1">
+                    <div className="form-group">
+                      <label>Complemento</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Complemento"
+                        value={complemento}
+                        onChange={(e) => setComplemento(e.target.value)}
+                      />
+                      <small className="form-text text-muted">
+                        Exemplo: Casa 1
+                      </small>
+                    </div>
+                  </div>
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Email</label>
                       <input
@@ -306,8 +357,7 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-
-                  <div className="col-md-4 pl-1">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
                       <label>Telefone</label>
                       <input
@@ -317,9 +367,42 @@ const ConstrucaoService = () => {
                         value={telefone}
                         onChange={(e) => setTelefone(e.target.value)}
                       />
+                      <small className="form-text text-muted">
+                        Exemplo: (11) 99999-9999
+                      </small>
                     </div>
                   </div>
-                  <div className="col-md-4 pl-1">
+                  <div className="col-md-6 pr-1">
+                    <div className="form-group">
+                      <label>Nome do Responsável</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Nome do Responsável"
+                        value={proprietario}
+                        onChange={(e) => setProprietario(e.target.value)}
+                      />
+                      <small className="form-text text-muted">
+                        Exemplo: João da Silva
+                      </small>
+                    </div>
+                  </div>
+                  <div className="col-md-6 pl-1">
+                    <div className="form-group">
+                      <label>Valor da Obra</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Valor da Obra"
+                        value={valor}
+                        onChange={(e) => setValor(e.target.value)}
+                      />
+                      <small className="form-text text-muted">
+                        Exemplo: 1000,00
+                      </small>
+                    </div>
+                  </div>
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Status</label>
                       <select
@@ -327,64 +410,39 @@ const ConstrucaoService = () => {
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                        <option value="Andamento">Em andamento</option>
+                        <option value="Em Andamento">Em Andamento</option>
                         <option value="Finalizado">Finalizado</option>
                         <option value="Cancelado">Cancelado</option>
+                        <option value="Aguardando">Aguardando</option>
                       </select>
+                      <small className="form-text text-muted">
+                        Exemplo: Em Andamento
+                      </small>
                     </div>
                   </div>
-
-                  <div className="col-md-4 pl-1">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
-                      <label>Valor</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-4 pl-1">
-                    <div className="form-group">
-                      <label>Proprietario</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Proprietario"
-                        value={proprietario}
-                        onChange={(e) => setProprietario(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-md-4 pl-1">
-                    <div className="form-group">
-                      <label>Imagem</label>
+                      <label>Imagens</label>
                       <input
                         type="file"
                         className="form-control"
-                        placeholder="Imagem"
-                        value={imagem}
-                        onChange={(e) => setImagem(e.target.value)}
+                        placeholder="Imagens"
+                        multiple
+                        onChange={(e) => setImagem(e.target.files)}
                       />
+                      <small className="form-text text-muted">
+                        Exemplo: Imagens da Obra
+                      </small>
                     </div>
                   </div>
                 </div>
-
-                <br />
-                <div className="row">
-                  <div className="update ml-auto mr-auto">
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-round"
-                      onClick={handleSubmit}
-                    >
-                      Cadastrar
-                    </button>
-                  </div>
-                </div>
+                <button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="btn btn-primary btn-block"
+                >
+                  Cadastrar
+                </button>
               </form>
             </div>
           </div>

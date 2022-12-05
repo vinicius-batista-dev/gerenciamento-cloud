@@ -41,7 +41,6 @@ function ListarConstrucao() {
   const [valor, setValor] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState(null);
-  const [imagem, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -71,7 +70,6 @@ function ListarConstrucao() {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
-    imagem: imagem,
     status: status,
   };
 
@@ -119,19 +117,6 @@ function ListarConstrucao() {
       const response = await axios.put(api + "/" + id, data, config);
       listarConstrucao();
       handleClose();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //deve listar a a imgem da construcao
-  const listarImagem = async (id) => {
-    try {
-      const response = await axios.get(
-        `https://api-cloud-gerencia.herokuapp.com/api/construcao/${id}/imagem`,
-        config
-      );
-      setImagem(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -185,7 +170,6 @@ function ListarConstrucao() {
                     <TableCell align="right">Cidade</TableCell>
                     <TableCell align="right">Valor</TableCell>
                     <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">Imagem</TableCell>
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -220,7 +204,6 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
-                      <TableCell align="right">{row.imagem}</TableCell>
 
                       <TableCell align="right">
                         <Button

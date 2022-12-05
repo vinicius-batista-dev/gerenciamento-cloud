@@ -41,7 +41,7 @@ function ListarConstrucao() {
   const [valor, setValor] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState(null);
-  const [imagem, setImagem] = useState({ data: [] });
+  const [imagem, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -71,6 +71,7 @@ function ListarConstrucao() {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
+    imagem: imagem,
     status: status,
   };
 
@@ -184,6 +185,7 @@ function ListarConstrucao() {
                     <TableCell align="right">Cidade</TableCell>
                     <TableCell align="right">Valor</TableCell>
                     <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Imagem</TableCell>
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -218,6 +220,7 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.imagem}</TableCell>
 
                       <TableCell align="right">
                         <Button

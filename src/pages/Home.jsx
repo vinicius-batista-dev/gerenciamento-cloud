@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, redirect, useNavigation } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,6 +8,8 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 
 const Home = () => {
+ 
+
   return (
     <div className="container">
       <div className="row">

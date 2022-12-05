@@ -29,6 +29,7 @@
     "react-bootstrap-toggle": "^2.3.2",
     "react-dom": "^18.2.0",
     "react-file-base64": "^1.0.3",
+    "react-hook-form": "^7.40.0",
     "react-html5-camera-photo": "^1.5.11",
     "react-image-base64": "^1.1.2",
     "react-image-data-capture": "^1.2.2",

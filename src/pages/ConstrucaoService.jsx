@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Camera from "react-html5-camera-photo";
-import "react-html5-camera-photo/build/css/index.css";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import useForm from "react-hook-form";
+import { Form } from "react-bootstrap";
+import { Button } from "@material-ui/core";
+import { CheckBox } from "@material-ui/icons";
+import { RadioGroup } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  TextField,
+  Grid,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 
 const ConstrucaoService = () => {
   const [descricao, setDescricao] = useState("");
@@ -93,28 +100,6 @@ const ConstrucaoService = () => {
     }
   };
 
-  const uploadImage = async (e) => {
-    const files = e.target.files[0];
-
-    const convertBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        };
-
-        fileReader.onerror = (error) => {
-          reject(error);
-        };
-      });
-    };
-
-    const base64 = await convertBase64(files);
-    setImagem(base64);
-  };
-
   //Deve emitir um alerta caso o usuário não esteja logado
   if (!localStorage.getItem("token")) {
     alert("Você não está logado!");
@@ -155,15 +140,15 @@ const ConstrucaoService = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12">
+        <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Cadastro de Construção</h3>
+              <h4 className="card-title">Cadastro de Serviço</h4>
             </div>
             <div className="card-body">
-              <form method="POST" onSubmit={handleSubmit}>
+              <form>
                 <div className="row">
-                  <div className="col-12">
+                  <div className="col-md-12">
                     <div className="form-group">
                       <label>Descrição</label>
                       <input
@@ -175,72 +160,59 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
-                      <label>Data Inicio</label>
+                      <label>Data de Início</label>
                       <input
                         type="date"
                         className="form-control"
-                        placeholder="Data Inicio"
+                        placeholder="Data de Início"
                         value={dataInicio}
                         onChange={(e) => setDataInicio(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
-                      <label>Data Fim</label>
+                      <label>Data de Término</label>
                       <input
                         type="date"
                         className="form-control"
-                        placeholder="Data Fim"
+                        placeholder="Data de Término"
                         value={dataFim}
                         onChange={(e) => setDataFim(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
-                      <label>Hora Inicio</label>
+                      <label>Hora de Início</label>
                       <input
                         type="time"
                         className="form-control"
-                        placeholder="Hora Inicio"
                         value={horaInicio}
                         onChange={(e) => setHoraInicio(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
-                      <label>Hora Fim</label>
+                      <label>Hora de Término</label>
                       <input
                         type="time"
                         className="form-control"
-                        placeholder="Hora Fim"
                         value={horaFim}
                         onChange={(e) => setHoraFim(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Status</label>
-                      <select
-                        type="text"
-                        className="form-control"
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                      >
-                        <option value="0">Selecione</option>
-                        <option value="Em progresso">Em progresso</option>
-                        <option value="Finalizado">Finalizado</option>
-                        <option value="Cancelado">Cancelado</option>
-                        <option value="Pendente">Pendente</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>Nome da Obra</label>
                       <input
@@ -252,24 +224,19 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
                       <label>Categoria da Obra</label>
-                      <select
-                        type="text"
-                        className="form-control"
-                        value={categoriaObra}
-                        onChange={(e) => setCategoriaObra(e.target.value)}
-                      >
-                        <option value="0">Selecione</option>
-                        <option value="construcao">Construção</option>
-                        <option value="reforma">Reforma</option>
-                        <option value="manutencao">Manutenção</option>
-                        <option value="demolicao">Demolição</option>
+                      <select className="form-control">
+                        <option value="0">Categoria da Obra</option>
+                        <option value="1">Construção</option>
+                        <option value="2">Reforma</option>
                       </select>
                     </div>
                   </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-6 pr-1">
                     <div className="form-group">
                       <label>CEP</label>
                       <input
@@ -277,24 +244,14 @@ const ConstrucaoService = () => {
                         className="form-control"
                         placeholder="CEP"
                         value={cep}
-                        onChange={(e) => setCep(e.target.value)}
-                        onBlur={validarCep}
+                        onChange={(e) => {
+                          setCep(e.target.value);
+                          validarCep(e);
+                        }}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Endereço</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Endereço"
-                        value={endereco}
-                        onChange={(e) => setEndereco(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
+                  <div className="col-md-6 pl-1">
                     <div className="form-group">
                       <label>Bairro</label>
                       <input
@@ -306,19 +263,9 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Cidade</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Cidade"
-                        value={cidade}
-                        onChange={(e) => setCidade(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-4 pr-1">
                     <div className="form-group">
                       <label>Estado</label>
                       <input
@@ -330,79 +277,55 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="col-md-4 px-1">
                     <div className="form-group">
-                      <label>Complemento</label>
+                      <label>Endereço</label>
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Complemento"
-                        value={complemento}
-                        onChange={(e) => setComplemento(e.target.value)}
+                        placeholder="Endereço"
+                        value={endereco}
+                        onChange={(e) => setEndereco(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="col-md-4 pl-1">
                     <div className="form-group">
                       <label>Email</label>
                       <input
                         type="email"
                         className="form-control"
-                        placeholder="Complemento"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                </div>
+                <div className="row">
+                  <div className="col-md-4 pr-1">
                     <div className="form-group">
                       <label>Telefone</label>
                       <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Telefone para contato"
-                        value={telefone}
-                        onChange={(e) => setTelefone(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Proprietario</label>
-                      <input
                         type="text"
                         className="form-control"
-                        placeholder="Proprietário"
-                        value={proprietario}
-                        onChange={(e) => setProprietario(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-12">
-                    <div className="form-group">
-                      <label>Valor</label>
-                      <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Valor"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
+                        placeholder="Telefone"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
                       />
                     </div>
                   </div>
                 </div>
                 <br />
                 <div className="row">
-                  <div className="col-12">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={salvar}
-                      className="btn btn-primary"
+                  <div className="update ml-auto mr-auto">
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-round"
+                      onClick={handleSubmit}
                     >
-                      Salvar
-                    </Button>
+                      Cadastrar
+                    </button>
                   </div>
                 </div>
               </form>

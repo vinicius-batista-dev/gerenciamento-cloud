@@ -146,7 +146,7 @@ const ConstrucaoService = () => {
               <h4 className="card-title">Cadastro de Serviço</h4>
             </div>
             <div className="card-body">
-              <form>
+              <form method="POST">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
@@ -227,10 +227,14 @@ const ConstrucaoService = () => {
                   <div className="col-md-6 pl-1">
                     <div className="form-group">
                       <label>Categoria da Obra</label>
-                      <select className="form-control">
-                        <option value="0">Categoria da Obra</option>
-                        <option value="1">Construção</option>
-                        <option value="2">Reforma</option>
+                      <select
+                        className="form-control"
+                        value={categoriaObra}
+                        onChange={(e) => setCategoriaObra(e.target.value)}
+                      >
+                        <option value="Residencial">Residencial</option>
+                        <option value="Comercial">Comercial</option>
+                        <option value="Industrial">Industrial</option>
                       </select>
                     </div>
                   </div>
@@ -289,6 +293,7 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
+
                   <div className="col-md-4 pl-1">
                     <div className="form-group">
                       <label>Email</label>
@@ -301,9 +306,8 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-4 pr-1">
+
+                  <div className="col-md-4 pl-1">
                     <div className="form-group">
                       <label>Telefone</label>
                       <input
@@ -315,7 +319,60 @@ const ConstrucaoService = () => {
                       />
                     </div>
                   </div>
+                  <div className="col-md-4 pl-1">
+                    <div className="form-group">
+                      <label>Status</label>
+                      <select
+                        className="form-control"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <option value="Andamento">Em andamento</option>
+                        <option value="Finalizado">Finalizado</option>
+                        <option value="Cancelado">Cancelado</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-md-4 pl-1">
+                    <div className="form-group">
+                      <label>Valor</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Valor"
+                        value={valor}
+                        onChange={(e) => setValor(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4 pl-1">
+                    <div className="form-group">
+                      <label>Proprietario</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Proprietario"
+                        value={proprietario}
+                        onChange={(e) => setProprietario(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-4 pl-1">
+                    <div className="form-group">
+                      <label>Imagem</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        placeholder="Imagem"
+                        value={imagem}
+                        onChange={(e) => setImagem(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
+
                 <br />
                 <div className="row">
                   <div className="update ml-auto mr-auto">

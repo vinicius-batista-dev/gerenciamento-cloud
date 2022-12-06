@@ -39,7 +39,6 @@ function ListarConstrucao() {
   const [complemento, setComplemento] = useState("");
   const [cidade, setCidade] = useState("");
   const [valor, setValor] = useState("");
-  const [imagem, setImagem] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState(null);
 
@@ -71,7 +70,6 @@ function ListarConstrucao() {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
-    imagem: imagem,
     status: status,
   };
 

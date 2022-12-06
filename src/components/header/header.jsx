@@ -94,9 +94,7 @@ const Header = () => {
             <MenuItem onClick={handleConstrucaoService}>
               Construcao Service
             </MenuItem>
-            <MenuItem onClick={handleConsultarConstrucao}>
-              Consultar por Id
-            </MenuItem>
+            <MenuItem onClick={handleConsultarConstrucao}>Enviar Relatorio</MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

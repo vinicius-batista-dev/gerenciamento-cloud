@@ -8,8 +8,6 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 
 const Home = () => {
- 
-
   return (
     <div className="container">
       <div className="row">
@@ -48,7 +46,7 @@ const Home = () => {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        Apartamento
+                        Apartamentos
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Construção de casas, apartamentos, prédios, etc.

@@ -115,10 +115,7 @@ function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Esqueci minha senha"
-          />
+        
           <Button
             type="submit"
             fullWidth
@@ -129,11 +126,7 @@ function SignIn() {
             Logar
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Esqueceu sua senha?
-              </Link>
-            </Grid>
+          
             <Grid item>
               <Link to="/signup" variant="body2">
                 {"Não tem uma conta? Cadastre-se"}

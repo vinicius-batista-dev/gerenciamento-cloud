@@ -189,6 +189,7 @@ const ConsultaConstrucao = () => {
     doc.text(20, 80, "Categoria da Obra: " + categoriaObra);
     doc.text(20, 90, "CEP: " + cep);
     doc.text(20, 100, "Bairro: " + bairro);
+    doc.text(20, 110, "Valor: " + valor);
 
     doc.save("construcao.pdf");
   };
@@ -200,6 +201,8 @@ const ConsultaConstrucao = () => {
   const gerarRelatorio = () => {
     pdf();
   };
+
+  //Deve salvar a imagem no local storage
 
   if (!localStorage.getItem("token")) {
     alert("Você não está logado!");
@@ -506,7 +509,7 @@ const ConsultaConstrucao = () => {
           </Button>
           {/* gerarRelatorio */}
           <Button variant="primary" onClick={pdf}>
-            Gerar Relatório
+            Imprimir Comprovante
           </Button>
         </Modal.Footer>
       </Modal>

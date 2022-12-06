@@ -18,6 +18,9 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [admin, setAdmin] = useState(false);
+  const [superAdmin, setSuperAdmin] = useState(false);
+  const [normalUser, setNormalUser] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -35,6 +38,7 @@ const SignUp = () => {
     username,
     email,
     password,
+    roles: [admin, superAdmin, normalUser],
   };
 
   const handleSubmit = async (e) => {
@@ -111,6 +115,42 @@ const SignUp = () => {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    value={admin}
+                    onChange={(e) => setAdmin(e.target.checked)}
+                  />
+                }
+                label="Admin"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    value={superAdmin}
+                    onChange={(e) => setSuperAdmin(e.target.checked)}
+                  />
+                }
+                label="Super"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    value={normalUser}
+                    onChange={(e) => setNormalUser(e.target.checked)}
+                  />
+                }
+                label="Usuário"
               />
             </Grid>
           </Grid>

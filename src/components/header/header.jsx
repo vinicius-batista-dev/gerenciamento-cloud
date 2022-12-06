@@ -95,7 +95,7 @@ const Header = () => {
               Construcao Service
             </MenuItem>
             <MenuItem onClick={handleConsultarConstrucao}>
-              Consultar Construção
+              Consultar por Id
             </MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>

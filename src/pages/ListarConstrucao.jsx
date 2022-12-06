@@ -39,6 +39,7 @@ function ListarConstrucao() {
   const [complemento, setComplemento] = useState("");
   const [cidade, setCidade] = useState("");
   const [valor, setValor] = useState("");
+  const [imagem, setImagem] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState(null);
 
@@ -70,6 +71,7 @@ function ListarConstrucao() {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
+    imagem: imagem,
     status: status,
   };
 
@@ -122,14 +124,11 @@ function ListarConstrucao() {
     }
   };
 
-  if (!localStorage.getItem("token")) {
-    alert("Você não está logado!");
-    return <Navigate to="/signin" />;
-  }
-
   return (
     <div>
       <div className="container">
+        <p>Este e um servico para fazer a gestao das obras</p>
+
         <div className="row">
           <div className="col-12">
             <br />
@@ -204,7 +203,6 @@ function ListarConstrucao() {
                       <TableCell align="right">{row.cidade}</TableCell>
                       <TableCell align="right">{row.valor}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
-
                       <TableCell align="right">
                         <Button
                           variant="contained"

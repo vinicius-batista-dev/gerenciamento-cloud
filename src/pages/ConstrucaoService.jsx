@@ -20,7 +20,6 @@ const ConstrucaoService = () => {
   const [complemento, setComplemento] = useState("");
   const [cidade, setCidade] = useState("");
   const [valor, setValor] = useState("");
-  const [imagem, setImagem] = useState("");
   const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
@@ -51,7 +50,6 @@ const ConstrucaoService = () => {
     complemento: complemento,
     cidade: cidade,
     valor: valor,
-    imagem: imagem,
     status: status,
   };
 
@@ -112,7 +110,6 @@ const ConstrucaoService = () => {
       complemento === "" ||
       cidade === "" ||
       valor === "" ||
-      imagem === "" ||
       status === ""
     ) {
       alert("Preencha todos os campos!");
@@ -417,21 +414,6 @@ const ConstrucaoService = () => {
                       </select>
                       <small className="form-text text-muted">
                         Exemplo: Em Andamento
-                      </small>
-                    </div>
-                  </div>
-                  <div className="col-md-6 pl-1">
-                    <div className="form-group">
-                      <label>Imagens</label>
-                      <input
-                        type="file"
-                        className="form-control"
-                        placeholder="Imagens"
-                        multiple
-                        onChange={(e) => setImagem(e.target.files)}
-                      />
-                      <small className="form-text text-muted">
-                        Exemplo: Imagens da Obra
                       </small>
                     </div>
                   </div>

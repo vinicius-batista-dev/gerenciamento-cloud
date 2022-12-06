@@ -178,22 +178,6 @@ const ConsultaConstrucao = () => {
       });
   };
 
-  const pdf = () => {
-    const doc = new jsPDF();
-    doc.text(20, 20, "Nome da Obra: " + nomeDaObra);
-    doc.text(20, 30, "Descrição: " + descricao);
-    doc.text(20, 40, "Data de Inicio: " + dataInicio);
-    doc.text(20, 50, "Data de Fim: " + dataFim);
-    doc.text(20, 60, "Hora de Inicio: " + horaInicio);
-    doc.text(20, 70, "Hora de Fim: " + horaFim);
-    doc.text(20, 80, "Categoria da Obra: " + categoriaObra);
-    doc.text(20, 90, "CEP: " + cep);
-    doc.text(20, 100, "Bairro: " + bairro);
-    doc.text(20, 110, "Valor: " + valor);
-
-    doc.save("construcao.pdf");
-  };
-
   useEffect(() => {
     getConstrucao();
   }, []);
@@ -212,6 +196,33 @@ const ConsultaConstrucao = () => {
   const formatarData = (data) => {
     const dataFormatada = new Date(data);
     return dataFormatada.toLocaleDateString("pt-BR");
+  };
+
+  //Deve imprimir o relatorio em pdf respeitando o layout
+  const pdf = () => {
+    const doc = new jsPDF("p", "pt", "a4");
+    doc.setFontSize(18);
+    doc.text(40, 50, "Comprovante da construção");
+    doc.setFontSize(12);
+    doc.text(40, 70, "Nome da Obra: " + nomeDaObra);
+    doc.text(40, 90, "Descrição: " + descricao);
+    doc.text(40, 110, "Data de Início: " + formatarData(dataInicio));
+    doc.text(40, 130, "Data de Término: " + formatarData(dataFim));
+    doc.text(40, 150, "Hora de Início: " + horaInicio);
+    doc.text(40, 170, "Hora de Término: " + horaFim);
+    doc.text(40, 190, "Categoria da Obra: " + categoriaObra);
+    doc.text(40, 210, "CEP: " + cep);
+    doc.text(40, 230, "Bairro: " + bairro);
+    doc.text(40, 250, "Estado: " + estado);
+    doc.text(40, 270, "Endereço: " + endereco);
+    doc.text(40, 290, "Email: " + email);
+    doc.text(40, 310, "Proprietário: " + proprietario);
+    doc.text(40, 330, "Telefone: " + telefone);
+    doc.text(40, 350, "Complemento: " + complemento);
+    doc.text(40, 370, "Cidade: " + cidade);
+    doc.text(40, 390, "Valor: " + valor);
+    doc.text(40, 410, "Status: " + status);
+    doc.save("relatorio.pdf");
   };
 
   return (

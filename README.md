@@ -64,10 +64,6 @@ O sistema de gestão de obras armazena os seguintes dados:
     * O sistema deve permitir a geração de relatórios de custos de obras, com os seguintes dados: nome da obra, valor total, valor dos materiais, valor dos equipamentos, valor dos funcionários, e valor dos serviços terceirizados.
     * O sistema deve permitir a geração de relatórios de prazos de obras, com os seguintes dados: nome da obra, prazo de execução, data de início, data de término, e prazo restante.
 
-## Tipo de Contrato de uso do sistema
-
-O sistema será licenciado sob a licença MIT.
-
 ## Clone o projeto e instale as dependências
 
 ```bash
@@ -87,3 +83,17 @@ npm install
 npm start
 
 ```
+
+## Para contribuir
+
+1. Faça o _fork_ do projeto (<
+
+2. Crie uma _branch_ para sua modificação (`git checkout -b feature/seu-nome`)
+
+3. Faça o _commit_ (`git commit -am 'Minha nova feature'`)
+
+4. _Push_ (`git push origin feature/bug`)
+
+5. Crie um novo _Pull Request_
+
+## Meta

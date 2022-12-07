@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import FuncionarioService from "../../pages/FuncionarioService";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -57,6 +58,10 @@ const Header = () => {
     navigate("/consultaConstrucao");
   };
 
+  const handleFuncionarioService = () => {
+    navigate("/funcionarioService");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -92,9 +97,12 @@ const Header = () => {
               Listar Construcao
             </MenuItem>
             <MenuItem onClick={handleConstrucaoService}>
-              Construcao Service
+              Relatorio Obra
             </MenuItem>
-            <MenuItem onClick={handleConsultarConstrucao}>Enviar Relatorio</MenuItem>
+            <MenuItem onClick={handleFuncionarioService}>
+              Funcionario Service
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Sair</MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

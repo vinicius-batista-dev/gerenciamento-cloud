@@ -4,6 +4,14 @@
 
 O objetivo deste projeto é criar um sistema de gestão de obras, que permita o cadastro de obras, funcionários, materiais e equipamentos, e que permita a geração de relatórios de custos e de prazos.
 
+## Camadas de projeto do frontend
+
+    * Camada de componentes: responsável por renderizar os componentes da aplicação.
+    * Camada de serviços: responsável por fazer as requisições HTTP para a API.
+    * Camada de rotas: responsável por gerenciar as rotas da aplicação.
+    * Camada de pages: responsável por renderizar as páginas da aplicação.
+    * Camada de contexts (opcional): responsável por gerenciar o estado da aplicação.
+
 # Requisitos
 
 ## Requisitos funcionais

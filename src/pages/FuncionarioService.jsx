@@ -96,7 +96,6 @@ const FuncionarioService = () => {
                     <option value="Pintor">Pintor</option>
                     <option value="Jardineiro">Jardineiro</option>
                     <option value="Faxineiro">Faxineiro</option>
-                    <option value="Motorista">Motorista</option>
                   </select>
                 </div>
                 <div className="form-group">

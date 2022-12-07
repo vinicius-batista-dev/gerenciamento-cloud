@@ -93,9 +93,7 @@ const Header = () => {
           >
             <MenuItem onClick={handleHome}>Home</MenuItem>
 
-            <MenuItem onClick={handleListarConstrucao}>
-              Listar Construcao
-            </MenuItem>
+            <MenuItem onClick={handleListarConstrucao}>Gestao de Obra</MenuItem>
             <MenuItem onClick={handleConstrucaoService}>
               Relatorio Obra
             </MenuItem>

@@ -1,18 +1,7 @@
 import React from "react";
-import {
-  Typography,
-  Link,
-  Grid,
-  Button,
-  FormLabel,
-  FormGroup,
-  FormControl,
-  FormControlLabel,
-} from "@material-ui/core";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
-import { cpf } from "cpf-cnpj-validator";
-import { TextField } from "@mui/material";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const FuncionarioService = () => {
   const [nome, setNome] = React.useState("");
@@ -62,126 +51,128 @@ const FuncionarioService = () => {
   };
 
   return (
-    <Typography component="div" sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h4" component="div" gutterBottom>
-            Cadastrar Funcionário
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <form onSubmit={handleCadastrar}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  id="nome"
-                  label="Nome"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="email"
-                  label="Email"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="cargo"
-                  label="Cargo"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={cargo}
-                  onChange={(e) => setCargo(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="salario"
-                  label="Salário"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={salario}
-                  onChange={(e) => setSalario(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="cpf"
-                  label="CPF"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  type="date"
-                  id="dataNascimento"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={dataNascimento}
-                  onChange={(e) => setDataNascimento(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="dataAdmissao"
-                  type="date"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={dataAdmissao}
-                  onChange={(e) => setDataAdmissao(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="dataDemissao"
-                  type="date"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={dataDemissao}
-                  onChange={(e) => setDataDemissao(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="status"
-                  label="Status"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" color="primary" type="submit">
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="card">
+            <div className="card-header">
+              <h3>Cadastrar Funcionário</h3>
+            </div>
+            <div className="card-body">
+              <form method="POST" onSubmit={handleCadastrar}>
+                <div className="form-group">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Cargo</label>
+                  <select
+                    className="form-control"
+                    name="cargo"
+                    value={cargo}
+                    onChange={(e) => setCargo(e.target.value)}
+                  >
+                    <option value="0">Selecione</option>
+                    <option value="Carpinteiro">Carpinteiro</option>
+                    <option value="Pedreiro">Pedreiro</option>
+                    <option value="Eletricista">Eletricista</option>
+                    <option value="Encanador">Encanador</option>
+                    <option value="Pintor">Pintor</option>
+                    <option value="Jardineiro">Jardineiro</option>
+                    <option value="Faxineiro">Faxineiro</option>
+                    <option value="Motorista">Motorista</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Salário</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="salario"
+                    value={salario}
+                    onChange={(e) => setSalario(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>CPF</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="cpf"
+                    value={cpf}
+                    onChange={(e) => setCpf(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Data de Nascimento</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dataNascimento"
+                    value={dataNascimento}
+                    onChange={(e) => setDataNascimento(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Data de Admissão</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dataAdmissao"
+                    value={dataAdmissao}
+                    onChange={(e) => setDataAdmissao(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Data de Demissão</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dataDemissao"
+                    value={dataDemissao}
+                    onChange={(e) => setDataDemissao(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Status</label>
+                  <select
+                    className="form-control"
+                    name="status"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="0">Selecione</option>
+                    <option value="Trabalhando">Trabalhando</option>
+                    <option value="Férias">Férias</option>
+                    <option value="Desligado">Desligado</option>
+                  </select>
+                </div>
+                <br />
+                <button type="submit" className="btn btn-primary">
                   Cadastrar
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Grid>
-      </Grid>
-    </Typography>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

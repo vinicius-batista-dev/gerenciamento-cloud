@@ -27,36 +27,47 @@ O objetivo deste projeto é criar um sistema de gestão de obras, que permita o 
     * O sistema deve ser desenvolvido utilizando o framework Bootstrap.
     * O sistema deve ser desenvolvido utilizando o framework Reactstrap.
 
-# Diagrama de classes
+## Domínio do problema e contexto de sua aplicação
 
-![Diagrama de classes](https://i.imgur.com/0Z7Z7ZM.png)
+O sistema de gestão de obras é um sistema que permite o cadastro de obras, funcionários, materiais e equipamentos, e que permite a geração de relatórios de custos e de prazos.
 
-# Diagrama de casos de uso
+## Descrição dos interessados do sistema e suas necessidades
 
-![Diagrama de casos de uso](https://i.imgur.com/0Z7Z7ZM.png)
+O sistema de gestão de obras é utilizado por empresas de construção civil, que precisam gerenciar obras, funcionários, materiais, e que precisam gerar relatórios de custos e de prazos.
 
-# Diagrama de sequência
+## Descrição dos dados do sistema
 
-![Diagrama de sequência](https://i.imgur.com/0Z7Z7ZM.png)
+O sistema de gestão de obras armazena os seguintes dados:
 
-# Diagrama de atividades
+    * Obras: nome, endereço, valor total, prazo de execução, data de início, data de término, e o nome do responsável pela obra.
+    * Funcionários: nome, endereço, telefone, e salário.
+    * Materiais: nome, preço, e quantidade.
 
-![Diagrama de atividades](https://i.imgur.com/0Z7Z7ZM.png)
+## Casos de Uso e Requisitos Funcionais
 
-# Diagrama de estados
+### Caso de Uso 1: Cadastrar Obra
 
-![Diagrama de estados](https://i.imgur.com/0Z7Z7ZM.png)
+    * O sistema deve permitir o cadastro de obras, com os seguintes dados: nome, endereço, valor total, prazo de execução, data de início, data de término, e o nome do responsável pela obra.
 
-# Diagrama de componentes
+### Caso de Uso 2: Cadastrar Funcionário
 
-![Diagrama de componentes](https://i.imgur.com/0Z7Z7ZM.png)
+    * O sistema deve permitir o cadastro de funcionários, com os seguintes dados: nome, endereço, telefone, e salário.
 
-# Diagrama de implantação
+### Caso de Uso 3: Cadastrar Material
 
-![Diagrama de implantação](https://i.imgur.com/0Z7Z7ZM.png)
+    * O sistema deve permitir o cadastro de materiais, com os seguintes dados: nome, preço, e quantidade.
 
-# Diagrama de pacotes
+### Requisitos de informação
 
-![Diagrama de pacotes](https://i.imgur.com/0Z7Z7ZM.png)
+    * O sistema deve permitir a associação de materiais e equipamentos a obras.
+    * O sistema deve permitir a associação de funcionários a obras.
+    * O sistema deve permitir a geração de relatórios de custos de obras, com os seguintes dados: nome da obra, valor total, valor dos materiais, valor dos equipamentos, valor dos funcionários, e valor dos serviços terceirizados.
+    * O sistema deve permitir a geração de relatórios de prazos de obras, com os seguintes dados: nome da obra, prazo de execução, data de início, data de término, e prazo restante.
 
-# Diagrama de implantação
+## Tipo de Contrato de uso do sistema
+
+O sistema será licenciado sob a licença MIT.
+
+## Diagrama de Classes
+
+![Diagrama de Classes](https://i.imgur.com/0Z0Z7Zg.png)

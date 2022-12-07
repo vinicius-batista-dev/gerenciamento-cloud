@@ -12,6 +12,7 @@ import ConstrucaoService from "../pages/ConstrucaoService";
 import ListarConstrucao from "../pages/ListarConstrucao";
 import ConsultaConstrucao from "../pages/ConsultaConstrucao";
 import FuncionarioService from "../pages/FuncionarioService";
+import ListarFuncionario from "../pages/ListarFuncionario";
 import { useAuth } from "../contexts/auth";
 import SignIn from "../pages/Signin";
 
@@ -74,6 +75,17 @@ const AppRoutes = () => {
           element={
             <PrivateRouter
               element={<FuncionarioService />}
+              redirect="/signin"
+              isLogged={isLogged}
+            />
+          }
+        />
+
+        <Route
+          path="/listarFuncionario"
+          element={
+            <PrivateRouter
+              element={<ListarFuncionario />}
               redirect="/signin"
               isLogged={isLogged}
             />

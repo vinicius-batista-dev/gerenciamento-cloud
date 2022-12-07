@@ -127,6 +127,9 @@ const FuncionarioService = () => {
                     value={dataNascimento}
                     onChange={(e) => setDataNascimento(e.target.value)}
                   />
+                  <small className="form-text text-muted">
+                    Data de Nascimento: 10/02/2022
+                  </small>
                 </div>
                 <div className="form-group">
                   <label>Data de Admissão</label>
@@ -137,6 +140,9 @@ const FuncionarioService = () => {
                     value={dataAdmissao}
                     onChange={(e) => setDataAdmissao(e.target.value)}
                   />
+                  <small className="form-text text-muted">
+                    Data de Admissão: 10/02/2022
+                  </small>
                 </div>
                 <div className="form-group">
                   <label>Data de Demissão</label>
@@ -147,6 +153,9 @@ const FuncionarioService = () => {
                     value={dataDemissao}
                     onChange={(e) => setDataDemissao(e.target.value)}
                   />
+                  <small className="form-text text-muted">
+                    Data de Demissão: 10/02/2022
+                  </small>
                 </div>
                 <div className="form-group">
                   <label>Status</label>

@@ -62,6 +62,10 @@ const Header = () => {
     navigate("/funcionarioService");
   };
 
+  const handleListarFuncionario = () => {
+    navigate("/listarFuncionario");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -95,10 +99,16 @@ const Header = () => {
 
             <MenuItem onClick={handleListarConstrucao}>Gestao de Obra</MenuItem>
             <MenuItem onClick={handleConstrucaoService}>
-              Relatorio Obra
+              Construcao Service
             </MenuItem>
             <MenuItem onClick={handleFuncionarioService}>
               Funcionario Service
+            </MenuItem>
+            <MenuItem onClick={handleConsultarConstrucao}>
+              Consultar Construcao
+            </MenuItem>
+            <MenuItem onClick={handleListarFuncionario}>
+              Gestao de Funcionario
             </MenuItem>
             <MenuItem onClick={handleClose}>Sair</MenuItem>
             <MenuItem onClick={logout}>Logout</MenuItem>

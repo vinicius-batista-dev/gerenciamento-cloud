@@ -51,33 +51,6 @@ const FuncionarioService = () => {
     }
   };
 
-  const validarCpf = (cpf) => {
-    if (cpf.length !== 11) {
-      return false;
-    } else {
-      var numeros = cpf.substring(0, 9);
-      var digitos = cpf.substring(9);
-      var soma = 0;
-      for (var i = 10; i > 1; i--) {
-        soma += numeros.charAt(10 - i) * i;
-      }
-      var resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-      if (resultado !== digitos.charAt(0)) {
-        return false;
-      }
-      soma = 0;
-      numeros = cpf.substring(0, 10);
-      for (var k = 11; k > 1; k--) {
-        soma += numeros.charAt(11 - k) * k;
-      }
-      resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-      if (resultado !== digitos.charAt(1)) {
-        return false;
-      }
-      return true;
-    }
-  };
-
   return (
     <div className="container">
       <div className="row">
@@ -144,11 +117,6 @@ const FuncionarioService = () => {
                     name="cpf"
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)}
-                    onBlur={(e) => {
-                      if (!validarCpf(e.target.value)) {
-                        alert("CPF inválido");
-                      }
-                    }}
                   />
                 </div>
                 <div className="form-group">
@@ -199,9 +167,8 @@ const FuncionarioService = () => {
                     onChange={(e) => setStatus(e.target.value)}
                   >
                     <option value="0">Selecione</option>
-                    <option value="Trabalhando">Trabalhando</option>
-                    <option value="Férias">Férias</option>
-                    <option value="Desligado">Desligado</option>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
                   </select>
                 </div>
                 <br />

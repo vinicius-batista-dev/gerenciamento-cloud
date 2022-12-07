@@ -68,6 +68,22 @@ O sistema de gestão de obras armazena os seguintes dados:
 
 O sistema será licenciado sob a licença MIT.
 
-## Diagrama de Classes
+## Clone o projeto e instale as dependências
 
-![Diagrama de Classes](https://i.imgur.com/0Z0Z7Zg.png)
+```bash
+
+git clone
+
+cd
+
+npm install
+
+```
+
+## Inicie o servidor de desenvolvimento
+
+```bash
+
+npm start
+
+```

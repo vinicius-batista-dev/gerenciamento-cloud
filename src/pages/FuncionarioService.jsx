@@ -144,6 +144,11 @@ const FuncionarioService = () => {
                     name="cpf"
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)}
+                    onBlur={(e) => {
+                      if (!validarCpf(e.target.value)) {
+                        alert("CPF inválido");
+                      }
+                    }}
                   />
                 </div>
                 <div className="form-group">

@@ -96,4 +96,6 @@ npm start
 
 5. Crie um novo _Pull Request_
 
-## Meta
+## Licença
+
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.

@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+## PROJETO DE GESTAO DE OBRAS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Objetivo
 
-## Available Scripts
+O objetivo deste projeto é criar um sistema de gestão de obras, que permita o cadastro de obras, funcionários, materiais e equipamentos, e que permita a geração de relatórios de custos e de prazos.
 
-In the project directory, you can run:
+# Requisitos
 
-### `npm start`
+## Requisitos funcionais
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    * O sistema deve permitir o cadastro de obras, com os seguintes dados: nome, endereço, valor total, prazo de execução, data de início, data de término, e o nome do responsável pela obra.
+    * O sistema deve permitir o cadastro de funcionários, com os seguintes dados: nome, endereço, telefone, e salário.
+    * O sistema deve permitir o cadastro de materiais, com os seguintes dados: nome, preço, e quantidade.
+    * O sistema deve permitir o cadastro de equipamentos, com os seguintes dados: nome, preço, e quantidade.
+    * O sistema deve permitir a associação de materiais e equipamentos a obras.
+    * O sistema deve permitir a associação de funcionários a obras.
+    * O sistema deve permitir a geração de relatórios de custos de obras, com os seguintes dados: nome da obra, valor total, valor dos materiais, valor dos equipamentos, valor dos funcionários, e valor dos serviços terceirizados.
+    * O sistema deve permitir a geração de relatórios de prazos de obras, com os seguintes dados: nome da obra, prazo de execução, data de início, data de término, e prazo restante.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Requisitos não funcionais
 
-### `npm test`
+    * O sistema deve ser desenvolvido em Nodejs.
+    * O sistema deve ser desenvolvido utilizando o framework Express.
+    * O sistema deve ser desenvolvido utilizando o framework Sequelize.
+    * O sistema deve ser desenvolvido utilizando a biblioteca Reactjs.
+    * O sistema deve ser desenvolvido utilizando o framework Material-UI.
+    * O sistema deve ser desenvolvido utilizando o framework Bootstrap.
+    * O sistema deve ser desenvolvido utilizando o framework Reactstrap.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Diagrama de classes
 
-### `npm run build`
+![Diagrama de classes](https://i.imgur.com/0Z7Z7ZM.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Diagrama de casos de uso
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Diagrama de casos de uso](https://i.imgur.com/0Z7Z7ZM.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Diagrama de sequência
 
-### `npm run eject`
+![Diagrama de sequência](https://i.imgur.com/0Z7Z7ZM.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Diagrama de atividades
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Diagrama de atividades](https://i.imgur.com/0Z7Z7ZM.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Diagrama de estados
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Diagrama de estados](https://i.imgur.com/0Z7Z7ZM.png)
 
-## Learn More
+# Diagrama de componentes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Diagrama de componentes](https://i.imgur.com/0Z7Z7ZM.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Diagrama de implantação
 
-### Code Splitting
+![Diagrama de implantação](https://i.imgur.com/0Z7Z7ZM.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Diagrama de pacotes
 
-### Analyzing the Bundle Size
+![Diagrama de pacotes](https://i.imgur.com/0Z7Z7ZM.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Diagrama de implantação

@@ -3,18 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import SearchBar from "material-ui-search-bar";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Visibility } from "@material-ui/icons";
-import { Delete } from "@mui/icons-material";
+
 import jsPDF from "jspdf";
 
 const ConsultaConstrucao = () => {
@@ -185,8 +176,6 @@ const ConsultaConstrucao = () => {
   const gerarRelatorio = () => {
     pdf();
   };
-
-  //Deve salvar a imagem no local storage
 
   if (!localStorage.getItem("token")) {
     alert("Você não está logado!");

@@ -5,16 +5,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-
 import SignUp from "../pages/Signup";
-
 import Header from "../components/header/header";
 import Home from "../pages/Home";
-
 import ConstrucaoService from "../pages/ConstrucaoService";
 import ListarConstrucao from "../pages/ListarConstrucao";
 import ConsultaConstrucao from "../pages/ConsultaConstrucao";
-
 import { useAuth } from "../contexts/auth";
 import SignIn from "../pages/Signin";
 

@@ -121,7 +121,9 @@ function ListarConstrucao() {
   return (
     <div>
       <div className="container">
-        <p>Este e um servico para fazer a gestao das obras</p>
+        <div className="col-12">
+          <h1>Gestao de Obras</h1>
+        </div>
 
         <div className="row">
           <div className="col-12">

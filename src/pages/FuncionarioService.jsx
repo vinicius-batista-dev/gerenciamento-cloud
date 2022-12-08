@@ -57,7 +57,7 @@ const FuncionarioService = () => {
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              <h3>Cadastrar Funcionário</h3>
+              <h4 className="card-title">Funcionario </h4>
             </div>
             <div className="card-body">
               <form method="POST" onSubmit={handleCadastrar}>

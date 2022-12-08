@@ -292,6 +292,9 @@ const ListarFuncionario = () => {
             <Button variant="primary" onClick={handleUpdate}>
               Editar
             </Button>
+            <Button variant="secondary" onClick={handleClose}>
+              Fechar
+            </Button>
           </Form>
         </Modal.Body>
       </Modal>

@@ -7,10 +7,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Modal, Button, Form, CardImg } from "react-bootstrap";
-import { ButtonBase, Select } from "@mui/material";
-import { Delete, Edit } from "@material-ui/icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ListarFuncionario = () => {
   const [id, setId] = React.useState("");
@@ -30,6 +29,9 @@ const ListarFuncionario = () => {
 
   const navigate = useNavigate();
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -38,42 +40,18 @@ const ListarFuncionario = () => {
     },
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/funcionario";
 
-  //Deve trazer os dados do funcionario para o modal
-  const handleEditar = async (id) => {
-    try {
-      const response = await axios.put(
-        `https://api-cloud-gerencia.herokuapp.com/api/funcionario/${id}`,
-        config
-      );
-      setId(response.data.id);
-      setNome(response.data.nome);
-      setEmail(response.data.email);
-      setCargo(response.data.cargo);
-      setSalario(response.data.salario);
-      setCpf(response.data.cpf);
-      setDataNascimento(response.data.dataNascimento);
-      setDataAdmissao(response.data.dataAdmissao);
-      setDataDemissao(response.data.dataDemissao);
-      setStatus(response.data.status);
-      handleShow();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(
-        `https://api-cloud-gerencia.herokuapp.com/api/funcionario/${id}`,
-        config
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+  const data = {
+    nome: nome,
+    email: email,
+    cargo: cargo,
+    salario: salario,
+    cpf: cpf,
+    dataNascimento: dataNascimento,
+    dataAdmissao: dataAdmissao,
+    dataDemissao: dataDemissao,
+    status: status,
   };
 
   const handleListar = async () => {
@@ -88,86 +66,132 @@ const ListarFuncionario = () => {
     }
   };
 
-  const formataData = (data) => {
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(api + "/" + id, data, config);
+      handleListar();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(api + "/" + id, config);
+      handleListar();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const converterData = (data) => {
     const dataFormatada = new Date(data);
-    return dataFormatada.toLocaleDateString("pt-BR");
+    const dia = dataFormatada.getDate();
+    const mes = dataFormatada.getMonth() + 1;
+    const ano = dataFormatada.getFullYear();
+    return `${dia}/${mes}/${ano}`;
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h1 className="text-center">Gestao de Funcionarios</h1>
-          </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h1>Gestao de Funcionarios</h1>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/funcionarioService")}
+          >
+            Cadastrar Funcionario
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleListar}
+            style={{ marginLeft: "10px" }}
+          >
+            Listar Funcionarios
+          </Button>
         </div>
-        <div className="row">
-          <div className="col-12">
-            <Button variant="primary" onClick={handleListar}>
-              Listar Funcionarios
-            </Button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell align="right">Nome</TableCell>
-                    <TableCell align="right">Email</TableCell>
-                    <TableCell align="right">Cargo</TableCell>
-                    <TableCell align="right">Salario</TableCell>
-                    <TableCell align="right">CPF</TableCell>
-                    <TableCell align="right">Data de Nascimento</TableCell>
-                    <TableCell align="right">Data de Admissao</TableCell>
-                    <TableCell align="right">Data de Demissao</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">Acoes</TableCell>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>#</TableCell>
+                  <TableCell align="right">Nome</TableCell>
+                  <TableCell align="right">Email</TableCell>
+                  <TableCell align="right">Cargo</TableCell>
+                  <TableCell align="right">Salario</TableCell>
+                  <TableCell align="right">CPF</TableCell>
+                  <TableCell align="right">Data Nascimento</TableCell>
+                  <TableCell align="right">Data Admissao</TableCell>
+                  <TableCell align="right">Data Demissao</TableCell>
+                  <TableCell align="right">Status</TableCell>
+                  <TableCell align="right">Acoes</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {funcionarios.map((funcionario) => (
+                  <TableRow
+                    key={funcionario.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {funcionario.id}
+                    </TableCell>
+                    <TableCell align="right">{funcionario.nome}</TableCell>
+                    <TableCell align="right">{funcionario.email}</TableCell>
+                    <TableCell align="right">{funcionario.cargo}</TableCell>
+                    <TableCell align="right">{funcionario.salario}</TableCell>
+                    <TableCell align="right">{funcionario.cpf}</TableCell>
+                    <TableCell align="right">
+                      {converterData(funcionario.dataNascimento)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {converterData(funcionario.dataAdmissao)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {converterData(funcionario.dataDemissao)}
+                    </TableCell>
+                    <TableCell align="right">{funcionario.status}</TableCell>
+                    <TableCell align="right">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          handleShow();
+                          setId(funcionario.id);
+                          setNome(funcionario.nome);
+                          setEmail(funcionario.email);
+                          setCargo(funcionario.cargo);
+                          setSalario(funcionario.salario);
+                          setCpf(funcionario.cpf);
+                          setDataNascimento(funcionario.dataNascimento);
+                          setDataAdmissao(funcionario.dataAdmissao);
+                          setDataDemissao(funcionario.dataDemissao);
+                          setStatus(funcionario.status);
+                        }}
+                      >
+                        Editar
+                      </Button>
+
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => handleDelete(funcionario.id)}
+                        style={{ marginLeft: "10px" }}
+                      >
+                        Excluir
+                      </Button>
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {funcionarios.map((funcionario) => (
-                    <TableRow
-                      key={funcionario.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {funcionario.id}
-                      </TableCell>
-                      <TableCell align="right">{funcionario.nome}</TableCell>
-                      <TableCell align="right">{funcionario.email}</TableCell>
-                      <TableCell align="right">{funcionario.cargo}</TableCell>
-                      <TableCell align="right">{funcionario.salario}</TableCell>
-                      <TableCell align="right">{funcionario.cpf}</TableCell>
-                      <TableCell align="right">
-                        {formataData(funcionario.dataNascimento)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {formataData(funcionario.dataAdmissao)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {formataData(funcionario.dataDemissao)}
-                      </TableCell>
-                      <TableCell align="right">{funcionario.status}</TableCell>
-                      <TableCell align="right">
-                        <Button variant="primary" onClick={handleShow}>
-                          Editar
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => handleDelete(funcionario.id)}
-                        >
-                          Deletar
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -175,55 +199,104 @@ const ListarFuncionario = () => {
           <Modal.Title>Editar Funcionario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form method="PUT" onSubmit={handleEditar}>
+          <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Nome" />
+              <Form.Control
+                type="text"
+                placeholder="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Email" />
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Cargo</Form.Label>
-              <Form.Control type="text" placeholder="Cargo" />
+              <Form.Select
+                aria-label="Default select example"
+                value={cargo}
+                onChange={(e) => setCargo(e.target.value)}
+              >
+                <option value="Carpinteiro">Carpinteiro</option>
+                <option value="Pedreiro">Pedreiro</option>
+                <option value="Pintor">Pintor</option>
+                <option value="Eletricista">Eletricista</option>
+                <option value="Encanador">Encanador</option>
+                <option value="Jardineiro">Jardineiro</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Salario</Form.Label>
-              <Form.Control type="text" placeholder="Salario" />
+              <Form.Control
+                type="number"
+                placeholder="Salario"
+                value={salario}
+                onChange={(e) => setSalario(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>CPF</Form.Label>
-              <Form.Control type="text" placeholder="CPF" />
+              <Form.Control
+                type="text"
+                placeholder="CPF"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Data de Nascimento</Form.Label>
-              <Form.Control type="date" placeholder="Data de Nascimento" />
+              <Form.Label>Data Nascimento</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="Data Nascimento"
+                value={dataNascimento}
+                onChange={(e) => setDataNascimento(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Data de Admissao</Form.Label>
-              <Form.Control type="date" placeholder="Data de Admissao" />
+              <Form.Label>Data Admissao</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="Data Admissao"
+                value={dataAdmissao}
+                onChange={(e) => setDataAdmissao(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Data de Demissao</Form.Label>
-              <Form.Control type="date" placeholder="Data de Demissao" />
+              <Form.Label>Data Demissao</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="Data Demissao"
+                value={dataDemissao}
+                onChange={(e) => setDataDemissao(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Status</Form.Label>
-              <Form.Control type="text" placeholder="Status" />
+              <Form.Select
+                aria-label="Default select example"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </Form.Select>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" onClick={handleUpdate}>
               Editar
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );
 };
+
 export default ListarFuncionario;

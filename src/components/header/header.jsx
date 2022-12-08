@@ -50,18 +50,6 @@ const Header = () => {
     navigate("/listarConstrucao");
   };
 
-  const handleConstrucaoService = () => {
-    navigate("/construcaoService");
-  };
-
-  const handleConsultarConstrucao = () => {
-    navigate("/consultaConstrucao");
-  };
-
-  const handleFuncionarioService = () => {
-    navigate("/funcionarioService");
-  };
-
   const handleListarFuncionario = () => {
     navigate("/listarFuncionario");
   };
@@ -98,15 +86,7 @@ const Header = () => {
             <MenuItem onClick={handleHome}>Home</MenuItem>
 
             <MenuItem onClick={handleListarConstrucao}>Gestao de Obra</MenuItem>
-            <MenuItem onClick={handleConstrucaoService}>
-              Construcao Service
-            </MenuItem>
-            <MenuItem onClick={handleFuncionarioService}>
-              Funcionario Service
-            </MenuItem>
-            <MenuItem onClick={handleConsultarConstrucao}>
-              Consultar Construcao
-            </MenuItem>
+
             <MenuItem onClick={handleListarFuncionario}>
               Gestao de Funcionario
             </MenuItem>

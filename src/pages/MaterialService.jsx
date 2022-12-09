@@ -39,8 +39,8 @@ const MaterialService = () => {
       status: status,
       categoria: categoria,
       fornecedor: fornecedor,
-      dataEntrada: data_entrada,
-      dataSaida: data_saida,
+      data_entrada: data_entrada,
+      data_saida: data_saida,
     };
     try {
       const response = await axios.post(
@@ -174,11 +174,21 @@ const MaterialService = () => {
                         onChange={(e) => setCategoria(e.target.value)}
                       >
                         <option value="0">Selecione</option>
-                        <option value="1">Material de Limpeza</option>
-                        <option value="2">Material de Escritório</option>
-                        <option value="3">Material de Informática</option>
-                        <option value="4">Material de Segurança</option>
-                        <option value="5">Material de Construção</option>
+                        <option value="MaterialLimpeza">
+                          Material de Limpeza
+                        </option>
+                        <option value="MaterialEscritorio">
+                          Material de Escritório
+                        </option>
+                        <option value="MaterialInformatica">
+                          Material de Informática
+                        </option>
+                        <option value="MaterialSeguranca">
+                          Material de Segurança
+                        </option>
+                        <option value="MaterialConstrucao">
+                          Material de Construção
+                        </option>
                       </select>
                     </div>
                   </div>

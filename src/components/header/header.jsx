@@ -116,9 +116,7 @@ const Header = () => {
               sx={{ mr: 2 }}
               onClick={logout}
             >
-              <Avatar sx={{ bgcolor: "red" }}>
-                <AdbIcon />
-              </Avatar>
+             
             </IconButton>
           </Tooltip>
         </Toolbar>

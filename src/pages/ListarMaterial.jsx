@@ -41,7 +41,7 @@ const ListarMaterial = () => {
     },
   };
 
-  const handleListar = async () => {
+  const listarMaterial = async () => {
     try {
       const response = await axios.get(
         "https://api-cloud-gerencia.herokuapp.com/api/produtos",
@@ -53,11 +53,7 @@ const ListarMaterial = () => {
     }
   };
 
-  useEffect(() => {
-    handleListar();
-  }, []);
-
-  const handleUpdate = async (id) => {
+  const atualizarMaterial = async (id) => {
     try {
       const response = await axios.put(
         `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
@@ -74,177 +70,130 @@ const ListarMaterial = () => {
         },
         config
       );
-      console.log(response);
+      listarMaterial();
+      handleClose();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleDelete = async (id) => {
+  const deletarMaterial = async (id) => {
     try {
       const response = await axios.delete(
         `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
         config
       );
-      console.log(response);
+      listarMaterial();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleEdit = async (id) => {
-    try {
-      const response = await axios.get(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
-        config
-      );
-      setNome(response.data.nome);
-      setDescricao(response.data.descricao);
-      setQuantidade(response.data.quantidade);
-      setPreco(response.data.preco);
-      setStatus(response.data.status);
-      setFornecedor(response.data.fornecedor);
-      setDataEntrada(response.data.data_entrada);
-      setDataSaida(response.data.data_saida);
-      setCategoria(response.data.categoria);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSave = async (id) => {
-    try {
-      const response = await axios.put(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
-        {
-          nome,
-          descricao,
-          quantidade,
-          preco,
-          status,
-          fornecedor,
-          data_entrada,
-          data_saida,
-          categoria,
-        },
-        config
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const formatarData = (data) => {
+  const formataData = (data) => {
     let dataFormatada = new Date(data);
     return dataFormatada.toLocaleDateString();
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12">
-          <h1 className="text-center">Gestao de Materiais</h1>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row">
-                <div className="col-md-12">
-                  <ButtonBase
-                    style={{ marginRight: "10px" }}
-                    variant="primary"
-                    onClick={handleListar}
-                    className="btn btn-primary"
-                  >
-                    Listar
-                  </ButtonBase>
-                  <ButtonBase
-                    variant="primary"
-                    onClick={() => navigate("/materialService")}
-                    className="btn btn-primary"
-                  >
-                    Cadastrar
-                  </ButtonBase>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>#</TableCell>
-                          <TableCell align="right">Nome</TableCell>
-                          <TableCell align="right">Descrição</TableCell>
-                          <TableCell align="right">Quantidade</TableCell>
-                          <TableCell align="right">Preço</TableCell>
-                          <TableCell align="right">Status</TableCell>
-                          <TableCell align="right">Fornecedor</TableCell>
-                          <TableCell align="right">Data de Entrada</TableCell>
-                          <TableCell align="right">Data de Saída</TableCell>
-                          <TableCell align="right">Categoria</TableCell>
-                          <TableCell align="right">Ações</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {materiais.map((material) => (
-                          <TableRow
-                            key={material.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {material.id}
-                            </TableCell>
-                            <TableCell align="right">{material.nome}</TableCell>
-                            <TableCell align="right">
-                              {material.descricao}
-                            </TableCell>
-                            <TableCell align="right">
-                              {material.quantidade}
-                            </TableCell>
-                            <TableCell align="right">
-                              {material.preco}
-                            </TableCell>
-                            <TableCell align="right">
-                              {material.status}
-                            </TableCell>
-                            <TableCell align="right">
-                              {material.fornecedor}
-                            </TableCell>
-                            <TableCell align="right">
-                              {formatarData(material.data_entrada)}
-                            </TableCell>
-                            <TableCell align="right">
-                              {formatarData(material.data_saida)}
-                            </TableCell>
-                            <TableCell align="right">
-                              {material.categoria}
-                            </TableCell>
-                            <TableCell align="right">
-                              <ButtonBase
-                                variant="primary"
-                                onClick={() => handleEdit(material.id)}
-                                className="btn btn-primary"
-                              >
-                                Editar
-                              </ButtonBase>
-                              <ButtonBase
-                                variant="primary"
-                                onClick={() => handleDelete(material.id)}
-                                className="btn btn-primary"
-                              >
-                                Deletar
-                              </ButtonBase>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </div>
-              </div>
-            </div>
+    <div>
+      <div className="container">
+        <div className="col-12">
+          <h1>Gestao de Obras</h1>
+        </div>
+
+        <div className="row">
+          <div className="col-12">
+            <br />
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => navigate("/materialService")}
+            >
+              Cadastrar
+            </button>
+            <Button variant="contained" onClick={listarMaterial}>
+              Listar
+            </Button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>#</TableCell>
+                    <TableCell align="right">Descrição</TableCell>
+                    <TableCell align="right">Quantidade</TableCell>
+                    <TableCell align="right">Preço</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Fornecedor</TableCell>
+                    <TableCell align="right">Data Entrada</TableCell>
+                    <TableCell align="right">Data Saida</TableCell>
+                    <TableCell align="right">Categoria</TableCell>
+                    <TableCell align="right">Ações</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {materiais.map((material) => (
+                    <TableRow
+                      key={material.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {material.id}
+                      </TableCell>
+                      <TableCell align="right">{material.nome}</TableCell>
+                      <TableCell align="right">{material.quantidade}</TableCell>
+                      <TableCell align="right">{material.preco}</TableCell>
+                      <TableCell align="right">{material.status}</TableCell>
+                      <TableCell align="right">{material.fornecedor}</TableCell>
+                      <TableCell align="right">
+                        {formataData(material.data_entrada)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {formataData(material.data_saida)}
+                      </TableCell>
+                      <TableCell align="right">{material.categoria}</TableCell>
+                      <TableCell align="right">
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            handleShow();
+                            setDescricao(material.descricao);
+                            setQuantidade(material.quantidade);
+                            setPreco(material.preco);
+                            setStatus(material.status);
+                            setFornecedor(material.fornecedor);
+                            setDataEntrada(material.data_entrada);
+                            setDataSaida(material.data_saida);
+                            setCategoria(material.categoria);
+                          }}
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            atualizarMaterial(material.id);
+                          }}
+                        >
+                          Atualizar
+                        </Button>
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            deletarMaterial(material.id);
+                          }}
+                        >
+                          Deletar
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </div>
       </div>
@@ -253,134 +202,94 @@ const ListarMaterial = () => {
           <Modal.Title>Editar Material</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Nome</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Descrição</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={descricao}
-                      onChange={(e) => setDescricao(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Quantidade</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={quantidade}
-                      onChange={(e) => setQuantidade(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Preço</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={preco}
-                      onChange={(e) => setPreco(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Status</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Fornecedor</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={fornecedor}
-                      onChange={(e) => setFornecedor(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Data de Entrada</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={data_entrada}
-                      onChange={(e) => setDataEntrada(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Data de Saída</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={data_saida}
-                      onChange={(e) => setDataSaida(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label>Categoria</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={categoria}
-                      onChange={(e) => setCategoria(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Descrição</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Quantidade</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Quantidade"
+                value={quantidade}
+                onChange={(e) => setQuantidade(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Preço</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Preço"
+                value={preco}
+                onChange={(e) => setPreco(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Status</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="Disponivel">Disponivel</option>
+                <option value="Indisponivel">Indisponivel</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Fornecedor</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Fornecedor"
+                value={fornecedor}
+                onChange={(e) => setFornecedor(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Data Entrada</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="Data Entrada"
+                value={data_entrada}
+                onChange={(e) => setDataEntrada(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Data Saida</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="Data Saida"
+                value={data_saida}
+                onChange={(e) => setDataSaida(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Categoria</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+              >
+                <option value="Eletrônico">Eletrônico</option>
+                <option value="Móvel">Móvel</option>
+                <option value="Eletrodoméstico">Eletrodoméstico</option>
+                <option value="Outros">Outros</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleEdit}>
-            Salvar
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

@@ -187,19 +187,37 @@ const ConsultaConstrucao = () => {
     return dataFormatada.toLocaleDateString("pt-BR");
   };
 
-  //Deve imprimir o relatorio em pdf respeitando o layout
+  //pdf relatorio necessario para o proprietario da obra
   const pdf = () => {
     const doc = new jsPDF("p", "pt", "a4");
     doc.setFontSize(18);
-    doc.text(40, 50, "Comprovante da construção");
+    doc.text(
+      40,
+      40,
+      "Relatorio da obra" +
+        " " +
+        nomeDaObra +
+        " " +
+        "do dia" +
+        " " +
+      formatarData(dataInicio) 
+    );
+        
+    
     doc.setFontSize(12);
-    doc.text(40, 70, "Nome da Obra: " + nomeDaObra);
-    doc.text(40, 90, "Descrição: " + descricao);
-    doc.text(40, 190, "Categoria da Obra: " + categoriaObra);
-    doc.text(40, 270, "Endereço: " + endereco);
-    doc.text(40, 310, "Proprietário: " + proprietario);
-    doc.text(40, 370, "Cidade: " + cidade);
-    doc.text(40, 410, "Status: " + status);
+    doc.text(40, 60, "Nome da obra: " + nomeDaObra);
+    doc.text(40, 80, "Categoria da obra: " + categoriaObra);
+    doc.text(40, 100, "Proprietario: " + proprietario);
+    doc.text(40, 120, "Telefone: " + telefone);
+    doc.text(40, 140, "Email: " + email);
+    doc.text(40, 160, "Endereço: " + endereco);
+    doc.text(40, 180, "Bairro: " + bairro);
+    doc.text(40, 200, "Cidade: " + cidade);
+    doc.text(40, 220, "Estado: " + estado);
+    doc.text(40, 240, "CEP: " + cep);
+    doc.text(40, 260, "Complemento: " + complemento);
+    doc.text(40, 280, "Valor: " + valor);
+    doc.text(40, 300, "Status: " + status);
     doc.save("relatorio.pdf");
   };
 

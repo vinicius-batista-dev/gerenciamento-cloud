@@ -37,6 +37,7 @@ function ListarConstrucao() {
   const [valor, setValor] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(0);
 
   const navigate = useNavigate();
 
@@ -67,6 +68,7 @@ function ListarConstrucao() {
     cidade: cidade,
     valor: valor,
     status: status,
+    userId: userId,
   };
 
   //Deve listar a construcao com a imagem
@@ -171,6 +173,7 @@ function ListarConstrucao() {
                 <TableBody>
                   {construcao.map((row) => (
                     <TableRow
+                      style={{ cursor: "pointer" }}
                       key={row.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >

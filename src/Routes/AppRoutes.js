@@ -15,6 +15,7 @@ import FuncionarioService from "../pages/FuncionarioService";
 import ListarFuncionario from "../pages/ListarFuncionario";
 import ListarMaterial from "../pages/ListarMaterial";
 import MaterialService from "../pages/MaterialService";
+import RelatorioMaterial from "../pages/RelatorioMaterial";
 import { useAuth } from "../contexts/auth";
 import SignIn from "../pages/Signin";
 
@@ -44,6 +45,17 @@ const AppRoutes = () => {
           element={
             <PrivateRouter
               element={<ConstrucaoService />}
+              redirect="/signin"
+              isLogged={isLogged}
+            />
+          }
+        />
+
+        <Route
+          path="/relatorioMaterial"
+          element={
+            <PrivateRouter
+              element={<RelatorioMaterial />}
               redirect="/signin"
               isLogged={isLogged}
             />

@@ -46,18 +46,6 @@ const ConsultaConstrucao = () => {
     navigate("/");
   }
 
-  const requestSearch = (searchedVal) => {
-    const filteredRows = construcao.filter((row) => {
-      return row.nomeDaObra.toLowerCase().includes(searchedVal.toLowerCase());
-    });
-    setConstrucao(filteredRows);
-  };
-
-  const cancelSearch = () => {
-    setSearched("");
-    requestSearch(searched);
-  };
-
   const handleShow = (id) => {
     setShow(true);
     setId(id);
@@ -65,60 +53,6 @@ const ConsultaConstrucao = () => {
 
   const handleClose = () => {
     setShow(false);
-  };
-
-  const showModal = (id) => {
-    axios
-      .get(`http://localhost:5000/api/construcao/${id}`, config)
-      .then((response) => {
-        setDescricao(response.data.descricao);
-        setDataInicio(response.data.dataInicio);
-        setDataFim(response.data.dataFim);
-        setHoraInicio(response.data.horaInicio);
-        setHoraFim(response.data.horaFim);
-        setNomeDaObra(response.data.nomeDaObra);
-        setCategoriaObra(response.data.categoriaObra);
-        setCep(response.data.cep);
-        setBairro(response.data.bairro);
-        setEstado(response.data.estado);
-        setEndereco(response.data.endereco);
-        setEmail(response.data.email);
-        setProprietario(response.data.proprietario);
-        setTelefone(response.data.telefone);
-        setComplemento(response.data.complemento);
-        setCidade(response.data.cidade);
-        setValor(response.data.valor);
-        setImagem(response.data.imagem);
-        setStatus(response.data.status);
-      })
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  };
-
-  const handleCloseModal = () => {
-    setShow(false);
-  };
-
-  const handleShowDelete = (id) => {
-    setId(id);
-  };
-
-  const handleDelete = (id) => {
-    axios
-      .delete(
-        "https://api-cloud-gerencia.herokuapp.com/api/construcao/" + id,
-        config
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          alert("Construção deletada com sucesso!");
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const abrirModal = (id) => {
@@ -194,20 +128,17 @@ const ConsultaConstrucao = () => {
     doc.text(
       40,
       40,
-      "Relatorio da obra" +
+      "Relatorio de obras" +
         " " +
         nomeDaObra +
         " " +
-        "do dia" +
+        proprietario +
         " " +
-      formatarData(dataInicio) 
+        dataFim
     );
-        
-    
-    doc.setFontSize(12);
-    doc.text(40, 60, "Nome da obra: " + nomeDaObra);
+    doc.setFontSize(20);
+
     doc.text(40, 80, "Categoria da obra: " + categoriaObra);
-    doc.text(40, 100, "Proprietario: " + proprietario);
     doc.text(40, 120, "Telefone: " + telefone);
     doc.text(40, 140, "Email: " + email);
     doc.text(40, 160, "Endereço: " + endereco);
@@ -231,7 +162,7 @@ const ConsultaConstrucao = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="page-title-box d-flex align-items-center justify-content-between">
-                      <h4 className="mb-0 font-size-18">Relatorio</h4>
+                      <h4 className="mb-0 font-size-18">Relatorio de Obras</h4>
                       <div className="page-title-right">
                         <ol className="breadcrumb m-0">
                           <li className="breadcrumb-item">

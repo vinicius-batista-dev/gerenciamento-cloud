@@ -98,7 +98,7 @@ const ListarMaterial = () => {
     <div>
       <div className="container">
         <div className="col-12">
-          <h1>Gestao de Obras</h1>
+          <h1>Gestao de Material</h1>
         </div>
 
         <div className="row">
@@ -123,6 +123,7 @@ const ListarMaterial = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>#</TableCell>
+                    <TableCell align="right">Nome</TableCell>
                     <TableCell align="right">Descrição</TableCell>
                     <TableCell align="right">Quantidade</TableCell>
                     <TableCell align="right">Preço</TableCell>
@@ -144,6 +145,7 @@ const ListarMaterial = () => {
                         {material.id}
                       </TableCell>
                       <TableCell align="right">{material.nome}</TableCell>
+                      <TableCell align="right">{material.descricao}</TableCell>
                       <TableCell align="right">{material.quantidade}</TableCell>
                       <TableCell align="right">{material.preco}</TableCell>
                       <TableCell align="right">{material.status}</TableCell>
@@ -160,6 +162,7 @@ const ListarMaterial = () => {
                           variant="contained"
                           onClick={() => {
                             handleShow();
+                            setNome(material.nome);
                             setDescricao(material.descricao);
                             setQuantidade(material.quantidade);
                             setPreco(material.preco);

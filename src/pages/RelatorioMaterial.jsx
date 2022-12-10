@@ -89,13 +89,29 @@ const RelatorioMaterial = () => {
 
   const pdf = () => {
     const doc = new jsPDF();
-    doc.text(20, 20, "Relatório do Material" + " " + formatarData(new Date()));
-    doc.text(20, 30, "Nome: " + nome);
-    doc.text(20, 40, "Descrição: " + descricao);
+    doc.text(
+      45,
+      20,
+
+      "Comprovante do material" + " da data " + formatarData(new Date())
+    );
+    doc.text(
+      20,
+      30,
+      "***********************************************************************"
+    );
+    doc.text(20, 40, "Nome: " + nome);
     doc.text(20, 50, "Quantidade: " + quantidade);
     doc.text(20, 60, "Preço: " + preco);
     doc.text(20, 70, "Status: " + status);
-    doc.save("relatorio.pdf");
+    doc.text(20, 80, "Data de Saída: " + data_saida);
+    doc.text(20, 100, "Categoria: " + categoria);
+    doc.text(
+      20,
+      110,
+      "***********************************************************************"
+    );
+    doc.save("comprovante.pdf");
   };
   return (
     <div>
@@ -256,7 +272,7 @@ const RelatorioMaterial = () => {
               <div className="form-group">
                 <label htmlFor="dataFim">Data de Saida</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control"
                   id="dataFim"
                   name="dataFim"

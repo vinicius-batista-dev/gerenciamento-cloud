@@ -35,16 +35,16 @@ const ListarMaterial = () => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
   };
 
+  // http://localhost:4000/api/produtos
+
   const listarMaterial = async () => {
     try {
       const response = await axios.get(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos",
+        "http://localhost:4000/api/produtos",
         config
       );
       setMateriais(response.data);
@@ -56,22 +56,21 @@ const ListarMaterial = () => {
   const atualizarMaterial = async (id) => {
     try {
       const response = await axios.put(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
+        "http://localhost:4000/api/produtos/" + id,
         {
-          nome,
-          descricao,
-          quantidade,
-          preco,
-          status,
-          fornecedor,
-          data_entrada,
-          data_saida,
-          categoria,
+          nome: nome,
+          descricao: descricao,
+          quantidade: quantidade,
+          preco: preco,
+          status: status,
+          fornecedor: fornecedor,
+          data_entrada: data_entrada,
+          data_saida: data_saida,
+          categoria: categoria,
         },
         config
       );
       listarMaterial();
-      handleClose();
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +79,7 @@ const ListarMaterial = () => {
   const deletarMaterial = async (id) => {
     try {
       const response = await axios.delete(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
+        "http://localhost:4000/api/produtos/" + id,
         config
       );
       listarMaterial();

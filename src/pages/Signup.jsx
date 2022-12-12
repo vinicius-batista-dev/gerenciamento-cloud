@@ -18,7 +18,9 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [roles, setRoles] = useState(["user"]);
+  const [admin, setAdmin] = useState(false);
+  const [superAdmin, setSuperAdmin] = useState(false);
+  const [normalUser, setNormalUser] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -30,13 +32,13 @@ const SignUp = () => {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signup";
+  const api = "http://localhost:4000/api/auth/signup";
 
   const data = {
     username,
     email,
     password,
-    roles,
+    roles: [admin, normalUser],
   };
 
   const handleSubmit = async (e) => {
@@ -137,7 +139,7 @@ const SignUp = () => {
 
         <Box sx={{ mt: 5 }}>
           <Typography variant="body2" color="text.secondary" align="center">
-            {"Cloud Gerencia © "}
+            {"Vinicius Batista © "}
             {new Date().getFullYear()}
             {"."}
           </Typography>

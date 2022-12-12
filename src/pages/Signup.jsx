@@ -38,7 +38,7 @@ const SignUp = () => {
     username,
     email,
     password,
-    roles: [admin, normalUser],
+    roles,
   };
 
   const handleSubmit = async (e) => {

@@ -35,7 +35,7 @@ function SignIn() {
     password,
   };
 
-  const api = " https://api-cloud-gerencia.herokuapp.com/api/auth/signin";
+  const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signin";
 
   //apos o login, o toke e o email sao armazenados no localstorage
   const handleSubmit = async (e) => {
@@ -64,11 +64,6 @@ function SignIn() {
       return false;
     }
   };
-
-  //Apos logar deve atualizar a pagina
-  if (token) {
-    window.location.reload();
-  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -112,7 +107,7 @@ function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        
+
           <Button
             type="submit"
             fullWidth
@@ -123,7 +118,6 @@ function SignIn() {
             Logar
           </Button>
           <Grid container>
-          
             <Grid item>
               <Link to="/signup" variant="body2">
                 {"Não tem uma conta? Cadastre-se"}

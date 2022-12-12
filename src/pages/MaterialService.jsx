@@ -54,6 +54,11 @@ const MaterialService = () => {
     }
   };
 
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div className="container">
       <div className="row">

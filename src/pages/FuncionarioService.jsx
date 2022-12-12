@@ -41,7 +41,7 @@ const FuncionarioService = () => {
     };
     try {
       const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/funcionario",
+        "https://api-cloud-gerencia.herokuapp.com/api/funcionarios",
         data,
         config
       );
@@ -50,6 +50,11 @@ const FuncionarioService = () => {
       console.log(error);
     }
   };
+
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <div className="container">

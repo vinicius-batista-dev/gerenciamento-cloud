@@ -20,7 +20,7 @@ import { useAuth } from "../contexts/auth";
 import SignIn from "../pages/Signin";
 
 const PrivateRouter = ({ element, redirect, isLogged }) => {
-  return <>{isLogged ? element : <Navigate to={redirect} />}</>;
+  return isLogged ? element : <Navigate to={redirect} />;
 };
 
 const AppRoutes = () => {

@@ -53,7 +53,7 @@ const ConstrucaoService = () => {
     status: status,
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
+  const api = "https://api.construcao.com/api/construcao";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -129,6 +129,11 @@ const ConstrucaoService = () => {
         console.log(error);
       });
   };
+
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <div className="container">

@@ -38,14 +38,9 @@ const RelatorioMaterial = () => {
     setShow(false);
   };
 
-  // "https://api-cloud-gerencia.herokuapp.com/api/produtos
-
   const abrirModal = (id) => {
     axios
-      .get(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos/" + id,
-        config
-      )
+      .get("https://api-cloud-gerencia.herokuapp.com/api/produtos" + id, config)
       .then((response) => {
         setNome(response.data.nome);
         setDescricao(response.data.descricao);
@@ -64,10 +59,7 @@ const RelatorioMaterial = () => {
 
   const getMateriais = async () => {
     try {
-      const response = await axios.get(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos",
-        config
-      );
+      const response = await axios.get("", config);
       setMaterial(response.data);
     } catch (error) {
       console.log(error);
@@ -113,6 +105,12 @@ const RelatorioMaterial = () => {
     );
     doc.save("comprovante.pdf");
   };
+
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div>
       <div className="container">

@@ -57,10 +57,7 @@ const ConsultaConstrucao = () => {
 
   const abrirModal = (id) => {
     axios
-      .get(
-        "https://api-cloud-gerencia.herokuapp.com/api/construcao/" + id,
-        config
-      )
+      .get("https://api.construcao.com/api/construcao/" + id, config)
       .then((response) => {
         if (response.status === 200) {
           setDescricao(response.data.descricao);
@@ -91,7 +88,7 @@ const ConsultaConstrucao = () => {
 
   const getConstrucao = () => {
     axios
-      .get("https://api-cloud-gerencia.herokuapp.com/api/construcao", config)
+      .get("https://localhost:4000/api/construcao", config)
       .then((response) => {
         if (response.status === 200) {
           setConstrucao(response.data);

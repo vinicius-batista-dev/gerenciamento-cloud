@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Modal, Button, Form, CardImg } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ListarFuncionario = () => {
@@ -57,7 +57,7 @@ const ListarFuncionario = () => {
   const handleListar = async () => {
     try {
       const response = await axios.get(
-        "https://api-cloud-gerencia.herokuapp.com/api/funcionario",
+        "https://localhost:4000/api/funcionario",
         config
       );
       setFuncionarios(response.data);
@@ -91,6 +91,11 @@ const ListarFuncionario = () => {
     const ano = dataFormatada.getFullYear();
     return `${dia}/${mes}/${ano}`;
   };
+
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <div className="container">

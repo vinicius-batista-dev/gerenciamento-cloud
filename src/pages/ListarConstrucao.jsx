@@ -47,7 +47,7 @@ function ListarConstrucao() {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/construcao";
+  const api = "https://api.construcao.com/api/construcao";
 
   const data = {
     descricao: descricao,
@@ -94,7 +94,7 @@ function ListarConstrucao() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `https://api-cloud-gerencia.herokuapp.com/api/construcao/${id}`,
+        `https://localhost:4000/api/construcao/${id}`,
         config
       );
       listarConstrucao();
@@ -119,6 +119,11 @@ function ListarConstrucao() {
       console.log(error);
     }
   };
+
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <div>

@@ -94,6 +94,11 @@ const ListarMaterial = () => {
     return dataFormatada.toLocaleDateString();
   };
 
+  if (!localStorage.getItem("token")) {
+    alert("Você não está logado!");
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div>
       <div className="container">

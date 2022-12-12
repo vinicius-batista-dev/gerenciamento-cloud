@@ -40,7 +40,7 @@ const ListarFuncionario = () => {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/funcionario";
+  const api = "http://localhost:4000/api/funcionario "
 
   const data = {
     nome: nome,

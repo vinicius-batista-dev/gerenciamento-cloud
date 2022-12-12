@@ -40,7 +40,7 @@ const RelatorioMaterial = () => {
 
   const abrirModal = (id) => {
     axios
-      .get("https://api-cloud-gerencia.herokuapp.com/api/produtos" + id, config)
+      .get("http://localhost:4000/api/produtos" + id, config)
       .then((response) => {
         setNome(response.data.nome);
         setDescricao(response.data.descricao);

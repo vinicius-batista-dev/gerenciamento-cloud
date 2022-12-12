@@ -23,32 +23,33 @@ const MaterialService = () => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
   };
 
-  const handleCadastrar = async (e) => {
-    e.preventDefault();
-    const data = {
-      nome: nome,
-      descricao: descricao,
-      preco: preco,
-      quantidade: quantidade,
-      status: status,
-      categoria: categoria,
-      fornecedor: fornecedor,
-      data_entrada: data_entrada,
-      data_saida: data_saida,
-    };
+  const handleCadastrar = () => {
     try {
-      const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos",
-        data,
-        config
-      );
-      console.log(response);
+      axios
+        .post(
+          "http://localhost:4000/api/produtos",
+          {
+            nome,
+            descricao,
+            quantidade,
+            preco,
+            status,
+            fornecedor,
+            data_entrada,
+            data_saida,
+            categoria,
+          },
+          config
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            alert("Material cadastrado com sucesso!");
+          }
+        });
     } catch (error) {
       console.log(error);
     }

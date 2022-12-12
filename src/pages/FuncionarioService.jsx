@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { cpf } from "cpf-cnpj-validator";
 
 const FuncionarioService = () => {
   const [nome, setNome] = React.useState("");
@@ -41,7 +40,7 @@ const FuncionarioService = () => {
     };
     try {
       const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/funcionarios",
+        "http://localhost:4000/api/funcionario",
         data,
         config
       );

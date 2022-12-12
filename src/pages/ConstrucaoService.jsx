@@ -53,7 +53,7 @@ const ConstrucaoService = () => {
     status: status,
   };
 
-  const api = "https://api.construcao.com/api/construcao";
+  const api = "http://localhost:4000/api/construcao";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ const ConstrucaoService = () => {
   const handleCep = (e) => {
     setCep(e.target.value);
     axios
-      .get(`https://viacep.com.br/ws/${e.target.value}/json/`)
+      .get(`://viacep.com.br/ws/${e.target.value}/json/`)
       .then((response) => {
         setBairro(response.data.bairro);
         setEstado(response.data.uf);

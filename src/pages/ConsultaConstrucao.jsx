@@ -57,7 +57,7 @@ const ConsultaConstrucao = () => {
 
   const abrirModal = (id) => {
     axios
-      .get("https://api.construcao.com/api/construcao/" + id, config)
+      .get("http://localhost:4000/api/construcao" + id, config)
       .then((response) => {
         if (response.status === 200) {
           setDescricao(response.data.descricao);
@@ -88,7 +88,7 @@ const ConsultaConstrucao = () => {
 
   const getConstrucao = () => {
     axios
-      .get("https://localhost:4000/api/construcao", config)
+      .get("http://localhost:4000/api/construcao", config)
       .then((response) => {
         if (response.status === 200) {
           setConstrucao(response.data);

@@ -18,9 +18,7 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [admin, setAdmin] = useState(false);
-  const [superAdmin, setSuperAdmin] = useState(false);
-  const [normalUser, setNormalUser] = useState(false);
+  const [roles, setRoles] = useState(["user"]);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();

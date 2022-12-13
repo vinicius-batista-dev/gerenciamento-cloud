@@ -44,7 +44,7 @@ const MaterialService = () => {
     };
     try {
       const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos",
+        "http://localhost:5000/api/produtos",
         data,
         config
       );

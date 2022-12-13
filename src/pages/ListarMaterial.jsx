@@ -44,7 +44,7 @@ const ListarMaterial = () => {
   const listarMaterial = async () => {
     try {
       const response = await axios.get(
-        "https://api-cloud-gerencia.herokuapp.com/api/produtos",
+        "http://localhost:5000/api/produtos",
         config
       );
       setMateriais(response.data);
@@ -56,7 +56,7 @@ const ListarMaterial = () => {
   const atualizarMaterial = async (id) => {
     try {
       const response = await axios.put(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
+        `http://localhost:5000/api/produtos/${id}`,
         {
           nome,
           descricao,
@@ -80,7 +80,7 @@ const ListarMaterial = () => {
   const deletarMaterial = async (id) => {
     try {
       const response = await axios.delete(
-        `https://api-cloud-gerencia.herokuapp.com/api/produtos/${id}`,
+        `http://localhost:5000/api/produtos/${id}`,
         config
       );
       listarMaterial();

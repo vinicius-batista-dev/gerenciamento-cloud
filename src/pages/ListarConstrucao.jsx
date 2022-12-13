@@ -47,7 +47,7 @@ function ListarConstrucao() {
     },
   };
 
-  const api = "https://api.construcao.com/api/construcao";
+  const api = "http://localhost:5000/api/construcao";
 
   const data = {
     descricao: descricao,
@@ -94,7 +94,7 @@ function ListarConstrucao() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `https://localhost:4000/api/construcao/${id}`,
+        `https://localhost:5000/api/construcao/${id}`,
         config
       );
       listarConstrucao();

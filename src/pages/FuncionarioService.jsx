@@ -41,7 +41,7 @@ const FuncionarioService = () => {
     };
     try {
       const response = await axios.post(
-        "https://api-cloud-gerencia.herokuapp.com/api/funcionarios",
+        "http://localhost:5000/api/funcionario",
         data,
         config
       );

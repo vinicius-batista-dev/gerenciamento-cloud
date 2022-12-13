@@ -53,7 +53,7 @@ const ConstrucaoService = () => {
     status: status,
   };
 
-  const api = "https://api.construcao.com/api/construcao";
+  const api = "http://localhost:5000/api/construcao";
 
   const handleSubmit = (e) => {
     e.preventDefault();

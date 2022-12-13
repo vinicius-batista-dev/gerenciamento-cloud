@@ -32,22 +32,24 @@ const SignUp = () => {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/auth/signup";
-
   const data = {
     username,
     email,
     password,
-    roles: [admin, normalUser],
+    roles: "user",
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(api, data, config);
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        data,
+        config
+      );
       navigate("/signin");
     } catch (error) {
-      console.log(error);
+      setError("Email ou senha incorretos");
     }
   };
 

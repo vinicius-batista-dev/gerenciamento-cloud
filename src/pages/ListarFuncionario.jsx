@@ -40,7 +40,7 @@ const ListarFuncionario = () => {
     },
   };
 
-  const api = "https://api-cloud-gerencia.herokuapp.com/api/funcionario";
+  const api = "http://localhost:5000/api/funcionario";
 
   const data = {
     nome: nome,
@@ -57,7 +57,7 @@ const ListarFuncionario = () => {
   const handleListar = async () => {
     try {
       const response = await axios.get(
-        "https://localhost:4000/api/funcionario",
+        "http://localhost:5000/api/funcionario",
         config
       );
       setFuncionarios(response.data);

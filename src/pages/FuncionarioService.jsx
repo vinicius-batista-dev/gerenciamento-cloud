@@ -46,6 +46,10 @@ const FuncionarioService = () => {
         config
       );
       console.log(response);
+      if (response.status === 200) {
+        alert("Funcionario cadastrado com sucesso!");
+        navigate("/listarFuncionario");
+      }
     } catch (error) {
       console.log(error);
     }

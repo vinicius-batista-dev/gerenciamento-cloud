@@ -131,7 +131,7 @@ const ConsultaConstrucao = () => {
         " " +
         proprietario +
         " " +
-        dataFim
+        formatarData(dataInicio)
     );
     doc.setFontSize(20);
 
@@ -403,6 +403,7 @@ const ConsultaConstrucao = () => {
                   id="dataFim"
                   name="dataFim"
                   value={dataFim}
+                  //Deve formatar a data para o padrão brasileiro
                   onChange={(e) => setDataFim(e.target.value)}
                   disabled
                 />

@@ -47,7 +47,10 @@ const SignUp = () => {
         data,
         config
       );
-      navigate("/signin");
+      if (response.status === 200) {
+        alert("Cadastro efetuado com sucesso");
+        navigate("/signin");
+      }
     } catch (error) {
       setError("Email ou senha incorretos");
     }

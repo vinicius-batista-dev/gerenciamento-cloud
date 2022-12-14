@@ -75,9 +75,15 @@ function ListarConstrucao() {
   const listarConstrucao = () => {
     axios
       .get(api, config)
+
       .then((response) => {
         setConstrucao(response.data);
         setLoading(true);
+        if (response.data.length === 0) {
+          alert("Nenhuma obra cadastrada!");
+        } else {
+          alert("Obras listadas com sucesso!");
+        }
       })
       .catch((error) => {
         console.log(error);

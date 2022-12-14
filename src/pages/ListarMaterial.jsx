@@ -48,6 +48,11 @@ const ListarMaterial = () => {
         config
       );
       setMateriais(response.data);
+      if (response.data.length === 0) {
+        alert("Nenhum material cadastrado!");
+      } else {
+        alert("Material listados com sucesso!");
+      }
     } catch (error) {
       console.log(error);
     }

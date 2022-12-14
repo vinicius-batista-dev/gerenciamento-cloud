@@ -61,6 +61,11 @@ const ListarFuncionario = () => {
         config
       );
       setFuncionarios(response.data);
+      if (response.data.length === 0) {
+        alert("Nenhum funcionario cadastrado!");
+      } else {
+        alert("Funcionarios listados com sucesso!");
+      }
     } catch (error) {
       console.log(error);
     }

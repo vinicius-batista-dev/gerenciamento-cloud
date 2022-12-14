@@ -99,7 +99,7 @@ const RelatorioMaterial = () => {
     doc.text(20, 50, "Quantidade: " + quantidade);
     doc.text(20, 60, "Preço: " + preco);
     doc.text(20, 70, "Status: " + status);
-    doc.text(20, 80, "Data de Saída: " + data_saida);
+    doc.text(20, 80, "Data de Saída: " + formatarData(data_saida));
     doc.text(20, 100, "Categoria: " + categoria);
     doc.text(
       20,

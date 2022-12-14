@@ -100,7 +100,7 @@ function ListarConstrucao() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `https://localhost:5000/api/construcao/${id}`,
+        `http://localhost:5000/api/construcao/${id}`,
         config
       );
       listarConstrucao();

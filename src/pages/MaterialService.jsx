@@ -48,7 +48,10 @@ const MaterialService = () => {
         data,
         config
       );
-      console.log(response);
+      if (response.status === 200) {
+        alert("Material cadastrado com sucesso!");
+        navigate("/listaMaterial");
+      }
     } catch (error) {
       console.log(error);
     }

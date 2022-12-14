@@ -61,7 +61,10 @@ const ConstrucaoService = () => {
       .post(api, data, config)
       .then((response) => {
         console.log(response);
-        navigate("/construcao");
+        if (response.status === 200) {
+          alert("Serviço cadastrado com sucesso!");
+          navigate("/construcaoService");
+        }
       })
       .catch((error) => {
         console.log(error);

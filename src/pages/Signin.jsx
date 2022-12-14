@@ -45,7 +45,16 @@ function SignIn() {
       setToken(response.data.accessToken);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("email", response.data.email);
-      navigate("/construcaoService");
+
+      //Se o usuario nao for encontrado, tera um alerta
+      if (response.status === 404) {
+        alert("Usuario nao encontrado");
+      }
+
+      if (response.status === 200) {
+        alert("Login efetuado com sucesso");
+        navigate("/listaConstrucao");
+      }
     } catch (error) {
       setError("Email ou senha incorretos");
     }

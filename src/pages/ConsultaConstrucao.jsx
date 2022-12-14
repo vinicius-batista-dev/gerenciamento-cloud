@@ -94,6 +94,10 @@ const ConsultaConstrucao = () => {
           setConstrucao(response.data);
           setLoading(true);
         }
+        if (response.data.length === 0) {
+          alert("Não há obras cadastradas!");
+          navigate("/construcaoService");
+        }
       })
       .catch((error) => {
         console.log(error);

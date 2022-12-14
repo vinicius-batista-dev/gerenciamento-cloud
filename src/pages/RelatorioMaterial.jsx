@@ -21,6 +21,8 @@ const RelatorioMaterial = () => {
   const [loading, setLoading] = useState(false);
   const [material, setMaterial] = useState([]);
 
+  const navigate = useNavigate();
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -64,6 +66,10 @@ const RelatorioMaterial = () => {
         config
       );
       setMaterial(response.data);
+      if (response.data.length === 0) {
+        alert("Não há material cadastrado!");
+        navigate("/materialService");
+      }
     } catch (error) {
       console.log(error);
     }

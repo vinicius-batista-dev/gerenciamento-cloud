@@ -107,6 +107,7 @@ const RelatorioMaterial = () => {
     doc.text(20, 70, "Status: " + status);
     doc.text(20, 80, "Data de Saída: " + formatarData(data_saida));
     doc.text(20, 100, "Categoria: " + categoria);
+    doc.text(20, 90, "Assinatura do Responsável: ");
     doc.text(
       20,
       110,

@@ -40,23 +40,17 @@ function SignIn() {
   //apos o login, o toke e o email sao armazenados no localstorage
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(api, data, config);
       setToken(response.data.accessToken);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("email", response.data.email);
-
-      //Se o usuario nao for encontrado, tera um alerta
-      if (response.status === 404) {
-        alert("Usuario nao encontrado");
-      }
-
-      if (response.status === 200) {
-        alert("Login efetuado com sucesso");
-        navigate("/listaConstrucao");
-      }
+      //Se me retornar um status 404, significa que o email ou senha estao incorretos
     } catch (error) {
-      setError("Email ou senha incorretos");
+      if (error.response.status === 404) {
+        setError("Email ou senha incorretos");
+      }
     }
   };
 
@@ -66,13 +60,6 @@ function SignIn() {
   if (token) {
     return <Navigate to="/listaConstrucao" />;
   }
-
-  const validarCampos = () => {
-    if (email === "" || password === "") {
-      alert("Preencha todos os campos");
-      return false;
-    }
-  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -122,7 +109,6 @@ function SignIn() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={validarCampos}
           >
             Logar
           </Button>
@@ -134,6 +120,19 @@ function SignIn() {
             </Grid>
           </Grid>
         </Box>
+      </Box>
+      <Box sx={{ mt: 8 }}>
+        <Typography variant="body2" color="text.secondary" align="center">
+          {"Termos de uso"}
+          <Link color="inherit" href="#">
+            {"Termos de uso"}
+          </Link>
+          {" e "}
+          <Link color="inherit" href="#">
+            {"Politica de Privacidade"}
+          </Link>
+          {"."}
+        </Typography>
       </Box>
     </Container>
   );

@@ -124,7 +124,7 @@ function SignIn() {
       <Box sx={{ mt: 8 }}>
         <Typography variant="body2" color="text.secondary" align="center">
           {"Termos de uso"}
-          <Link color="inherit" href="#">
+          <Link color="inherit" to="https://material-ui.com/">
             {"Termos de uso"}
           </Link>
           {" e "}
